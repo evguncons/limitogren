@@ -13,7 +13,7 @@
             --hl-primary-light: #fff1f6;
             --hl-bg: #fdf2f8;
             --hl-text-main: #1f2937;
-            --hl-text-muted: #6b7280;
+            --hl-text-muted: #4b5563;
             --hl-border: #dee2e6;
             --hl-white: #ffffff;
             
@@ -23,109 +23,217 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 15px;
             box-sizing: border-box;
+            
             background-color: #fdf2f8; 
             background-image: url('https://www.upload.ee/image/19322971/magnific_modern-ecommerce-campaign_2939673108.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
+            
             overflow-x: hidden;
             position: relative;
             z-index: 1;
         }
 
-        #hedef-limit-form-wrapper * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        #hedef-limit-form-wrapper * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         #hedef-limit-form-wrapper .hl-container {
             background: #ffffff !important;
             width: 100%;
-            max-width: 700px;
-            padding: 20px 15px;
-            border-radius: 24px;
-            box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.2);
+            max-width: 750px;
+            padding: 30px 25px;
+            border-radius: 30px;
+            box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.25);
             margin: 0 auto;
             position: relative;
             pointer-events: auto !important;
-            border: 1px solid rgba(233, 30, 99, 0.1);
+            border: 1px solid rgba(233, 30, 99, 0.15);
         }
 
         @media (min-width: 768px) {
-            #hedef-limit-form-wrapper .hl-container { padding: 30px 50px; border-radius: 35px; }
+            #hedef-limit-form-wrapper .hl-container {
+                padding: 40px 60px;
+            }
         }
 
+        /* Animasyonlar */
         .hl-fade-in { animation: hlFadeIn 0.8s ease-out forwards; }
         .hl-slide-up { animation: hlSlideUp 0.6s ease-out forwards; }
         .hl-shake { animation: hlShake 0.5s ease-in-out; }
 
         @keyframes hlFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes hlSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes hlShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-        @keyframes hlSlideDownAlert { from { transform: translate(-50%, -100%); opacity: 0; } to { transform: translate(-50%, 20px); opacity: 1; } }
-
-        #hedef-limit-form-wrapper .hl-header { text-align: center; margin-bottom: 15px; }
-        #hedef-limit-form-wrapper .hl-header h2 { font-size: 24px; font-weight: 900; color: var(--hl-primary); letter-spacing: -0.5px; }
-
-        #hedef-limit-form-wrapper .hl-label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 4px; color: #1e293b; }
-        #hedef-limit-form-wrapper .hl-question { font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 6px; line-height: 1.2; }
-
-        #hedef-limit-form-wrapper input, #hedef-limit-form-wrapper select {
-            width: 100%;
-            padding: 10px 14px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            background-color: #f8fafc;
-            outline: none;
-            color: var(--hl-text-main);
+        @keyframes hlSlideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes hlShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+        @keyframes hlSlideDownAlert {
+            from { transform: translate(-50%, -100%); opacity: 0; }
+            to { transform: translate(-50%, 20px); opacity: 1; }
         }
 
-        #hedef-limit-form-wrapper input:focus, #hedef-limit-form-wrapper select:focus { border-color: var(--hl-primary); background-color: #fff; }
+        #hedef-limit-form-wrapper .hl-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        #hedef-limit-form-wrapper .hl-header h2 {
+            font-size: 32px;
+            font-weight: 900;
+            margin: 0 0 8px 0;
+            color: var(--hl-primary); 
+            letter-spacing: -0.8px;
+            line-height: 1.1;
+        }
+
+        #hedef-limit-form-wrapper .hl-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: #111827;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #hedef-limit-form-wrapper .hl-question {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        #hedef-limit-form-wrapper input[type="text"], 
+        #hedef-limit-form-wrapper input[type="tel"] {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            background-color: #f9fafb;
+            outline: none;
+            color: var(--hl-text-main);
+            transition: all 0.25s ease;
+        }
+
+        #hedef-limit-form-wrapper input:focus {
+            border-color: var(--hl-primary);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.1);
+        }
 
         #hedef-limit-form-wrapper .hl-opt-btn {
-            height: 42px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            background: #fff;
-            font-size: 13px;
+            height: 52px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            background: #ffffff;
+            font-size: 15px;
             font-weight: 700;
-            color: #475569;
+            color: #4b5563;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: auto !important;
+            user-select: none;
+        }
+
+        #hedef-limit-form-wrapper .hl-opt-btn:hover {
+            border-color: var(--hl-primary-dark);
+            color: var(--hl-primary-dark);
         }
 
         #hedef-limit-form-wrapper .hl-opt-btn.active {
             background-color: var(--hl-primary) !important;
             border-color: var(--hl-primary) !important;
             color: #ffffff !important;
-            font-weight: 900 !important;
+            font-weight: 800 !important;
+            box-shadow: 0 10px 20px -5px rgba(233, 30, 99, 0.4);
+            transform: translateY(-2px);
         }
 
         #hedef-limit-form-wrapper .hl-submit-btn {
             width: 100%;
-            padding: 14px;
+            padding: 20px;
             background: linear-gradient(135deg, var(--hl-primary), var(--hl-primary-dark));
             color: #fff !important;
             border: none;
-            border-radius: 12px;
-            font-size: 15px;
+            border-radius: 16px;
+            font-size: 18px;
             font-weight: 800;
-            text-transform: capitalize;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 10px 25px rgba(233, 30, 99, 0.3);
+            margin-top: 20px;
+            box-shadow: 0 15px 30px rgba(233, 30, 99, 0.35);
+            transition: all 0.3s ease;
         }
 
-        #hedef-limit-form-wrapper .hl-limit-box { background: #fff; border: 3px dashed #f6ad55; padding: 20px 15px; border-radius: 24px; margin: 15px 0; }
-        #hedef-limit-form-wrapper .hl-limit-amount { font-size: 44px; font-weight: 900; color: var(--hl-primary); letter-spacing: -2px; }
+        #hedef-limit-form-wrapper .hl-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(233, 30, 99, 0.4);
+        }
 
-        #hl-alert { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #1f2937; color: #fff; padding: 12px 25px; border-radius: 50px; font-weight: 600; font-size: 13px; z-index: 10000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        #hedef-limit-form-wrapper .hl-submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #hedef-limit-form-wrapper .hl-limit-box {
+            background: var(--hl-primary-light);
+            border: 3px dashed var(--hl-primary);
+            padding: 30px 20px;
+            border-radius: 24px;
+            margin: 25px 0;
+            transition: transform 0.3s ease;
+        }
+
+        #hedef-limit-form-wrapper .hl-limit-amount {
+            font-size: 64px;
+            font-weight: 900;
+            color: #111827;
+            letter-spacing: -3px;
+            line-height: 1;
+        }
+
+        #hl-alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111827;
+            color: #ffffff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 15px;
+            z-index: 10000;
+            display: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
         .hl-hidden { display: none !important; }
+
+        @media (max-width: 640px) {
+            #hedef-limit-form-wrapper .hl-limit-amount { font-size: 52px; }
+            #hedef-limit-form-wrapper .hl-header h2 { font-size: 26px; }
+            #hedef-limit-form-wrapper .hl-opt-btn { height: 48px; font-size: 14px; }
+        }
     </style>
 </head>
 <body>
@@ -135,30 +243,31 @@
 
     <div class="hl-container hl-slide-up" id="hl-main-container">
         
+        <!-- FORM EKRANI -->
         <div id="hl-form-content">
             <div class="hl-header">
                 <h2>Limit Tespit Formu</h2>
-                <p class="text-[11px] text-gray-500">Hızlıca limitinizi öğrenin, alışverişe başlayın.</p>
+                <p class="text-[14px] text-gray-600 font-medium">Size özel alışveriş limitinizi saniyeler içinde öğrenin.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                 <div>
-                    <label class="hl-label">Ad *</label>
+                    <label class="hl-label">Adınız *</label>
                     <input type="text" id="hl-input-name" placeholder="Adınız">
                 </div>
                 <div>
-                    <label class="hl-label">Soyad *</label>
+                    <label class="hl-label">Soyadınız *</label>
                     <input type="text" id="hl-input-surname" placeholder="Soyadınız">
-                </div>
-                <div>
-                    <label class="hl-label">Telefon *</label>
-                    <input type="tel" id="hl-input-phone" placeholder="05XX XXX XX XX">
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div>
-                    <label class="hl-label">İl *</label>
+                    <label class="hl-label">Telefon No *</label>
+                    <input type="tel" id="hl-input-phone" placeholder="05XX XXX XX XX">
+                </div>
+                <div>
+                    <label class="hl-label">Şehir *</label>
                     <input type="text" id="hl-input-city" placeholder="Örn: İstanbul">
                 </div>
                 <div>
@@ -167,85 +276,97 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="hl-form-group">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
                     <p class="hl-question">Aktif icra dava dosyanız var mı? *</p>
-                    <div class="grid grid-cols-2 gap-2 hl-options-grid" data-key="hasIcra">
+                    <div class="grid grid-cols-2 gap-3 hl-options-grid" data-key="hasIcra">
                         <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
                         <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
                     </div>
                 </div>
-                <div class="hl-form-group">
+                <div>
                     <p class="hl-question">Şu an aktif çalışıyor musunuz? *</p>
-                    <div class="grid grid-cols-2 gap-2 hl-options-grid" data-key="isWorking">
+                    <div class="grid grid-cols-2 gap-3 hl-options-grid" data-key="isWorking">
                         <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
                         <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <div class="hl-form-group">
-                    <p class="hl-question">Üzerinizde tapu kaydı var mı? *</p>
-                    <div class="grid grid-cols-2 gap-2 hl-options-grid" data-key="hasTapu">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div>
+                    <p class="hl-question">Üzerinizde kayıtlı tapu var mı? *</p>
+                    <div class="grid grid-cols-2 gap-3 hl-options-grid" data-key="hasTapu">
                         <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
                         <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
                     </div>
                 </div>
-                <div class="hl-form-group">
+                <div>
                     <p class="hl-question">Yaş aralığınız nedir? *</p>
-                    <div class="grid grid-cols-3 gap-1 hl-options-grid" data-key="age">
-                        <button type="button" class="hl-opt-btn text-[10px]" data-val="18-26">18-26</button>
-                        <button type="button" class="hl-opt-btn text-[10px]" data-val="27-35">27-35</button>
-                        <button type="button" class="hl-opt-btn text-[10px]" data-val="36+">36+</button>
+                    <div class="grid grid-cols-3 gap-2 hl-options-grid" data-key="age">
+                        <button type="button" class="hl-opt-btn" data-val="18-26">18-26</button>
+                        <button type="button" class="hl-opt-btn" data-val="27-35">27-35</button>
+                        <button type="button" class="hl-opt-btn" data-val="36+">36+</button>
                     </div>
                 </div>
             </div>
 
-            <div class="hl-form-group mt-4 mb-4">
-                <p class="hl-question">Cinsiyetiniz nedir? *</p>
-                <div class="grid grid-cols-2 gap-3 hl-options-grid" data-key="gender">
+            <div class="mt-6 mb-6">
+                <p class="hl-question">Cinsiyetiniz? *</p>
+                <div class="grid grid-cols-2 gap-4 hl-options-grid" data-key="gender">
                     <button type="button" class="hl-opt-btn" data-val="kadin">Kadın</button>
                     <button type="button" class="hl-opt-btn" data-val="erkek">Erkek</button>
                 </div>
             </div>
 
-            <button type="button" id="hl-trigger-calculate" class="hl-submit-btn">Limitini Öğren</button>
+            <button type="button" id="hl-trigger-calculate" class="hl-submit-btn">Limitimi Hesapla</button>
         </div>
 
         <!-- ONAY EKRANI -->
         <div id="hl-success-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
-            <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+            <div class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
                 </svg>
             </div>
-            <h2 class="text-xl font-black mb-1 text-pink-600">Tebrikler!</h2>
-            <p class="text-gray-500 font-bold text-xs mb-4">Ön limitiniz başarıyla oluşturuldu.</p>
+            <h2 class="text-4xl font-black mb-2 text-pink-600">Tebrikler!</h2>
+            <p class="text-gray-600 font-bold text-lg mb-8">Limitiniz başarıyla tanımlandı.</p>
+            
             <div class="hl-limit-box">
-                <span class="text-[9px] font-black text-gray-500 uppercase block mb-1">ONAYLANAN ÖN LİMİTİNİZ</span>
+                <span class="text-sm font-black text-gray-500 tracking-[0.2em] uppercase block mb-2">ONAYLANAN ÖN LİMİTİNİZ</span>
                 <div class="hl-limit-amount">₺<span id="hl-final-amount">120.000</span></div>
             </div>
-            <div class="bg-blue-50 p-4 rounded-xl text-left mb-6 border-l-4 border-pink-400">
-                <p class="text-xs text-gray-700 leading-relaxed">🚀 <strong>Hemen Alışverişe Başlayın!</strong><br>Onaylı limitinizi kullanmak için size en yakın <strong>Hedef AVM</strong> mağazasını ziyaret edebilir, avantajlı fiyatlardan yararlanabilirsiniz.</p>
+
+            <div class="bg-blue-50 p-8 rounded-2xl text-left mb-8 border-l-8 border-pink-400 shadow-sm">
+                <p class="text-lg text-gray-800 leading-relaxed">
+                    🚀 <strong>Şimdi Alışveriş Zamanı!</strong><br>
+                    Bu limit ile Türkiye genelindeki tüm <strong>Hedef AVM</strong> mağazalarımızdan, <strong>elden taksit</strong> avantajıyla alışverişe hemen başlayabilirsiniz.
+                </p>
             </div>
-            <button type="button" class="hl-btn-reload w-full py-3 bg-gray-50 text-gray-800 font-bold rounded-xl border border-gray-100 text-sm">Yeni Sorgu Başlat</button>
+            
+            <button type="button" class="hl-reload-btn w-full py-5 bg-gray-900 text-white font-black rounded-2xl uppercase tracking-widest hover:bg-black transition-all">Yeni Sorgu Başlat</button>
         </div>
 
         <!-- RED EKRANI -->
         <div id="hl-error-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
-            <div class="w-16 h-16 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+            <div class="w-24 h-24 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M8 16a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
                 </svg>
             </div>
-            <h2 class="text-xl font-black mb-4 text-pink-600">Değerlendirme İçin Şubemize Bekliyoruz</h2>
-            <div class="bg-gray-50 p-6 rounded-2xl text-left mb-6 border border-gray-100">
-                <p class="font-black text-gray-900 mb-2 uppercase text-xs text-center">SAYIN <span id="hl-error-name" class="text-pink-600">MÜŞTERİMİZ</span>,</p>
-                <p class="text-xs text-gray-600 leading-relaxed mb-4 text-center">Online üzerinden yapılan ön değerlendirme sonuçlanamamıştır.</p>
-                <p class="text-xs text-gray-700 font-bold italic text-center">Kesin limit tespiti ve size özel ödeme seçenekleri için lütfen en yakın <strong>Hedef AVM</strong> mağazamıza kimliğiniz ile başvurun.</p>
+            <h2 class="text-3xl font-black mb-6 text-pink-600 leading-tight">Değerlendirme İçin<br>Şubemize Bekliyoruz</h2>
+            
+            <div class="bg-gray-50 p-10 rounded-3xl text-left mb-8 border border-gray-200">
+                <p class="font-black text-gray-900 mb-4 uppercase text-lg tracking-tight">SAYIN <span id="hl-error-name" class="text-pink-600">MÜŞTERİMİZ</span>,</p>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6 font-medium">
+                    Online ön değerlendirme sistemimiz şu an için başvurunuzu onaylayamamıştır.
+                </p>
+                <p class="text-lg text-gray-800 font-bold italic border-t pt-4 border-gray-200">
+                    Sizin için en uygun ödeme seçeneklerini belirleyebilmemiz adına sizi en yakın <strong>Hedef AVM</strong> mağazamıza davet ediyoruz.
+                </p>
             </div>
-            <button type="button" class="hl-btn-reload w-full py-3 bg-gray-50 text-gray-800 font-bold rounded-xl border border-gray-100 text-sm">Yeni Sorgu Başlat</button>
+
+            <button type="button" class="hl-reload-btn w-full py-5 bg-gray-900 text-white font-black rounded-2xl border border-gray-100 uppercase tracking-widest">Geri Dön</button>
         </div>
 
     </div>
@@ -267,17 +388,12 @@
             if (optBtn) {
                 e.preventDefault();
                 e.stopPropagation();
-                
                 var parent = optBtn.closest('.hl-options-grid');
                 var key = parent.getAttribute('data-key');
                 var val = optBtn.getAttribute('data-val');
-
                 hlState[key] = val;
-
                 var btns = parent.querySelectorAll('.hl-opt-btn');
-                for (var i = 0; i < btns.length; i++) {
-                    btns[i].classList.remove('active');
-                }
+                for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
                 optBtn.classList.add('active');
                 return false;
             }
@@ -288,12 +404,12 @@
                 return false;
             }
 
-            if (el.closest('.hl-btn-reload')) {
+            if (el.closest('.hl-reload-btn')) {
                 window.location.reload();
             }
         }, true);
 
-        function calculateLimit() {
+        async function calculateLimit() {
             var name = document.getElementById('hl-input-name').value.trim();
             var surname = document.getElementById('hl-input-surname').value.trim();
             var phone = document.getElementById('hl-input-phone').value.trim();
@@ -313,11 +429,11 @@
             }
 
             var btn = document.getElementById('hl-trigger-calculate');
-            btn.innerText = "Hesaplanıyor...";
+            btn.innerText = "SORGULANIYOR...";
             btn.disabled = true;
 
             var approved = false;
-            var amount = "0";
+            var amount = "";
 
             if (hlState.hasIcra === 'evet') {
                 approved = false;
@@ -332,12 +448,31 @@
             }
 
             if(SCRIPT_URL) {
-                const params = new URLSearchParams({
-                    name: name, surname: surname, phone: phone, city: city, district: district,
-                    hasIcra: hlState.hasIcra, isWorking: hlState.isWorking, hasTapu: hlState.hasTapu,
-                    age: hlState.age, gender: hlState.gender, status: approved ? "Onay" : "Mağaza", amount: amount
-                });
-                fetch(SCRIPT_URL + "?" + params.toString(), { method: 'POST', mode: 'no-cors' });
+                try {
+                    const formData = new URLSearchParams();
+                    formData.append('name', name);
+                    formData.append('surname', surname);
+                    formData.append('phone', phone);
+                    formData.append('city', city);
+                    formData.append('district', district);
+                    formData.append('hasIcra', hlState.hasIcra);
+                    formData.append('isWorking', hlState.isWorking);
+                    formData.append('hasTapu', hlState.hasTapu);
+                    formData.append('age', hlState.age);
+                    formData.append('gender', hlState.gender);
+                    formData.append('status', approved ? "KABUL EDİLDİ" : "REDDEDİLDİ");
+                    formData.append('amount', approved ? amount : "");
+
+                    fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        cache: 'no-cache',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: formData.toString()
+                    });
+                } catch (e) {
+                    console.error("Sheets Error:", e);
+                }
             }
 
             setTimeout(function() {
@@ -350,14 +485,14 @@
                     document.getElementById('hl-error-content').classList.remove('hl-hidden');
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 1200);
+            }, 1500);
         }
     }
 
-    var interval = setInterval(function() {
+    var checkExist = setInterval(function() {
         if (document.getElementById('hedef-limit-form-wrapper')) {
             runHedefCode();
-            clearInterval(interval);
+            clearInterval(checkExist);
         }
     }, 100);
 })();
