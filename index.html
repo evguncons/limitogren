@@ -11,6 +11,7 @@
             --hl-primary: #e91e63;
             --hl-primary-dark: #ad1457;
             --hl-primary-light: #fff1f6;
+            --hl-bg: #fdf2f8;
             --hl-text-main: #1f2937;
             --hl-text-muted: #6b7280;
             --hl-border: #dee2e6;
@@ -24,29 +25,24 @@
             align-items: center;
             padding: 10px;
             box-sizing: border-box;
-            
             background-color: #fdf2f8; 
             background-image: url('https://www.upload.ee/image/19322971/magnific_modern-ecommerce-campaign_2939673108.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            
             overflow-x: hidden;
             position: relative;
             z-index: 1;
         }
 
-        #hedef-limit-form-wrapper * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        #hedef-limit-form-wrapper * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         #hedef-limit-form-wrapper .hl-container {
             background: #ffffff !important;
             width: 100%;
-            max-width: 700px; /* Genişlik artırıldı */
-            padding: 25px 20px; /* Dikey boşluk azaltıldı */
+            max-width: 700px;
+            padding: 20px 15px;
             border-radius: 24px;
             box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.2);
             margin: 0 auto;
@@ -56,91 +52,44 @@
         }
 
         @media (min-width: 768px) {
-            #hedef-limit-form-wrapper .hl-container {
-                padding: 35px 50px; /* Masaüstünde de optimize edildi */
-                border-radius: 35px;
-            }
+            #hedef-limit-form-wrapper .hl-container { padding: 30px 50px; border-radius: 35px; }
         }
 
-        /* Animasyonlar */
         .hl-fade-in { animation: hlFadeIn 0.8s ease-out forwards; }
         .hl-slide-up { animation: hlSlideUp 0.6s ease-out forwards; }
         .hl-shake { animation: hlShake 0.5s ease-in-out; }
 
         @keyframes hlFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes hlSlideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes hlShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        @keyframes hlSlideDownAlert {
-            from { transform: translate(-50%, -100%); opacity: 0; }
-            to { transform: translate(-50%, 20px); opacity: 1; }
-        }
+        @keyframes hlSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes hlShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        @keyframes hlSlideDownAlert { from { transform: translate(-50%, -100%); opacity: 0; } to { transform: translate(-50%, 20px); opacity: 1; } }
 
-        #hedef-limit-form-wrapper .hl-header {
-            text-align: center;
-            margin-bottom: 20px; /* Mesafe daraltıldı */
-        }
+        #hedef-limit-form-wrapper .hl-header { text-align: center; margin-bottom: 15px; }
+        #hedef-limit-form-wrapper .hl-header h2 { font-size: 24px; font-weight: 900; color: var(--hl-primary); letter-spacing: -0.5px; }
 
-        #hedef-limit-form-wrapper .hl-header h2 {
-            font-size: 24px;
-            font-weight: 900;
-            margin: 0 0 5px 0;
-            color: var(--hl-primary); 
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-        }
+        #hedef-limit-form-wrapper .hl-label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 4px; color: #1e293b; }
+        #hedef-limit-form-wrapper .hl-question { font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 6px; line-height: 1.2; }
 
-        @media (min-width: 768px) {
-            #hedef-limit-form-wrapper .hl-header h2 { font-size: 28px; }
-        }
-
-        #hedef-limit-form-wrapper .hl-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 800;
-            margin-bottom: 5px;
-            color: #1e293b;
-        }
-
-        #hedef-limit-form-wrapper .hl-question {
-            font-size: 14px;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        #hedef-limit-form-wrapper input[type="text"] {
+        #hedef-limit-form-wrapper input, #hedef-limit-form-wrapper select {
             width: 100%;
-            padding: 12px 16px;
+            padding: 10px 14px;
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 15px;
+            border-radius: 10px;
+            font-size: 14px;
             font-weight: 600;
             background-color: #f8fafc;
             outline: none;
             color: var(--hl-text-main);
-            transition: border-color 0.2s, background-color 0.2s;
         }
 
-        #hedef-limit-form-wrapper input[type="text"]:focus {
-            border-color: var(--hl-primary);
-            background-color: #fff;
-            box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.1);
-        }
+        #hedef-limit-form-wrapper input:focus, #hedef-limit-form-wrapper select:focus { border-color: var(--hl-primary); background-color: #fff; }
 
         #hedef-limit-form-wrapper .hl-opt-btn {
-            height: 48px;
+            height: 42px;
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            border-radius: 10px;
             background: #fff;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             color: #475569;
             cursor: pointer;
@@ -148,8 +97,6 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            pointer-events: auto !important;
-            user-select: none;
         }
 
         #hedef-limit-form-wrapper .hl-opt-btn.active {
@@ -161,51 +108,23 @@
 
         #hedef-limit-form-wrapper .hl-submit-btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: linear-gradient(135deg, var(--hl-primary), var(--hl-primary-dark));
             color: #fff !important;
             border: none;
-            border-radius: 14px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 800;
             text-transform: capitalize;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 10px;
             box-shadow: 0 10px 25px rgba(233, 30, 99, 0.3);
-            pointer-events: auto !important;
         }
 
-        #hedef-limit-form-wrapper .hl-limit-box {
-            background: #fff;
-            border: 3px dashed #f6ad55;
-            padding: 25px 15px;
-            border-radius: 30px;
-            margin: 15px 0;
-        }
+        #hedef-limit-form-wrapper .hl-limit-box { background: #fff; border: 3px dashed #f6ad55; padding: 20px 15px; border-radius: 24px; margin: 15px 0; }
+        #hedef-limit-form-wrapper .hl-limit-amount { font-size: 44px; font-weight: 900; color: var(--hl-primary); letter-spacing: -2px; }
 
-        #hedef-limit-form-wrapper .hl-limit-amount {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--hl-primary);
-            letter-spacing: -2px;
-        }
-
-        #hl-alert {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1f2937;
-            color: #fff;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 14px;
-            z-index: 10000;
-            display: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
+        #hl-alert { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #1f2937; color: #fff; padding: 12px 25px; border-radius: 50px; font-weight: 600; font-size: 13px; z-index: 10000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .hl-hidden { display: none !important; }
     </style>
 </head>
@@ -216,58 +135,74 @@
 
     <div class="hl-container hl-slide-up" id="hl-main-container">
         
-        <!-- FORM EKRANI -->
         <div id="hl-form-content">
             <div class="hl-header">
                 <h2>Limit Tespit Formu</h2>
-                <p class="text-xs md:text-sm text-gray-500">Size özel alışveriş limitinizi anında öğrenin.</p>
+                <p class="text-[11px] text-gray-500">Hızlıca limitinizi öğrenin, alışverişe başlayın.</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 mb-4">
-                <div class="hl-form-group">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                <div>
                     <label class="hl-label">Ad *</label>
                     <input type="text" id="hl-input-name" placeholder="Adınız">
                 </div>
-                <div class="hl-form-group">
+                <div>
                     <label class="hl-label">Soyad *</label>
                     <input type="text" id="hl-input-surname" placeholder="Soyadınız">
                 </div>
-            </div>
-
-            <div class="hl-form-group mb-4">
-                <p class="hl-question">Aktif icra dava dosyanız var mı? *</p>
-                <div class="grid grid-cols-2 gap-3 hl-options-grid" data-key="hasIcra">
-                    <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
-                    <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
+                <div>
+                    <label class="hl-label">Telefon *</label>
+                    <input type="tel" id="hl-input-phone" placeholder="05XX XXX XX XX">
                 </div>
             </div>
 
-            <div class="hl-form-group mb-4">
-                <p class="hl-question">Şu an aktif çalışıyor musunuz? *</p>
-                <div class="grid grid-cols-2 gap-3 hl-options-grid" data-key="isWorking">
-                    <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
-                    <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
+            <div class="grid grid-cols-2 gap-3 mb-4">
+                <div>
+                    <label class="hl-label">İl *</label>
+                    <input type="text" id="hl-input-city" placeholder="Örn: İstanbul">
+                </div>
+                <div>
+                    <label class="hl-label">İlçe *</label>
+                    <input type="text" id="hl-input-district" placeholder="Örn: Kadıköy">
                 </div>
             </div>
 
-            <div class="hl-form-group mb-4">
-                <p class="hl-question">Üzerinizde kayıtlı herhangi bir tapu kaydı var mı? *</p>
-                <div class="grid grid-cols-2 gap-3 hl-options-grid" data-key="hasTapu">
-                    <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
-                    <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="hl-form-group">
+                    <p class="hl-question">Aktif icra dava dosyanız var mı? *</p>
+                    <div class="grid grid-cols-2 gap-2 hl-options-grid" data-key="hasIcra">
+                        <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
+                        <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
+                    </div>
+                </div>
+                <div class="hl-form-group">
+                    <p class="hl-question">Şu an aktif çalışıyor musunuz? *</p>
+                    <div class="grid grid-cols-2 gap-2 hl-options-grid" data-key="isWorking">
+                        <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
+                        <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="hl-form-group mb-4">
-                <p class="hl-question">Yaş aralığınız nedir? *</p>
-                <div class="grid grid-cols-3 gap-2 hl-options-grid" data-key="age">
-                    <button type="button" class="hl-opt-btn text-[11px] md:text-sm px-1" data-val="18-26">18 - 26</button>
-                    <button type="button" class="hl-opt-btn text-[11px] md:text-sm px-1" data-val="27-35">27 - 35</button>
-                    <button type="button" class="hl-opt-btn text-[11px] md:text-sm px-1" data-val="36+">36 ve üzeri</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="hl-form-group">
+                    <p class="hl-question">Üzerinizde tapu kaydı var mı? *</p>
+                    <div class="grid grid-cols-2 gap-2 hl-options-grid" data-key="hasTapu">
+                        <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
+                        <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
+                    </div>
+                </div>
+                <div class="hl-form-group">
+                    <p class="hl-question">Yaş aralığınız nedir? *</p>
+                    <div class="grid grid-cols-3 gap-1 hl-options-grid" data-key="age">
+                        <button type="button" class="hl-opt-btn text-[10px]" data-val="18-26">18-26</button>
+                        <button type="button" class="hl-opt-btn text-[10px]" data-val="27-35">27-35</button>
+                        <button type="button" class="hl-opt-btn text-[10px]" data-val="36+">36+</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="hl-form-group mb-6">
+            <div class="hl-form-group mt-4 mb-4">
                 <p class="hl-question">Cinsiyetiniz nedir? *</p>
                 <div class="grid grid-cols-2 gap-3 hl-options-grid" data-key="gender">
                     <button type="button" class="hl-opt-btn" data-val="kadin">Kadın</button>
@@ -279,53 +214,38 @@
         </div>
 
         <!-- ONAY EKRANI -->
-        <div id="hl-success-content" class="hl-result-screen hl-fade-in hl-hidden">
-            <div class="text-center">
-                <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                    </svg>
-                </div>
-                <h2 class="text-2xl font-black mb-1 text-pink-600">Tebrikler!</h2>
-                <p class="text-gray-500 font-bold text-sm mb-4">Limitiniz başarıyla oluşturuldu.</p>
-                
-                <div class="hl-limit-box">
-                    <span class="text-[10px] font-black text-gray-500 tracking-widest uppercase mb-1 block">ONAYLANAN ÖN LİMİTİNİZ</span>
-                    <div class="hl-limit-amount">₺<span id="hl-final-amount">120.000</span></div>
-                </div>
-
-                <div class="bg-blue-50 p-6 rounded-2xl text-left mb-6 border-l-8 border-pink-400">
-                    <p class="text-sm text-gray-700 leading-relaxed">
-                        🚀 <strong>Hemen Alışverişe Başlayın!</strong><br>
-                        Onaylı limitinizi kullanmak için size en yakın <strong>Hedef AVM</strong> mağazasını ziyaret edebilir, <strong>avantajlı fiyatlar</strong> ve <strong>elden taksit</strong> imkânından hemen yararlanabilirsiniz.
-                    </p>
-                </div>
-                
-                <button type="button" class="hl-btn-reload w-full py-3 bg-gray-50 text-gray-800 font-bold rounded-xl border border-gray-100">Yeni Sorgu Başlat</button>
-            </div>
-        </div>
-
-        <!-- RED EKRANI -->
-        <div id="hl-error-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
-             <div class="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+        <div id="hl-success-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
+            <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
                 </svg>
             </div>
-            <h2 class="text-2xl font-black mb-4 text-pink-600 leading-tight">Başvurunuz Onaylanamadı.</h2>
-            
-            <div class="bg-gray-50 p-6 rounded-3xl text-left mb-6 border border-gray-100">
-                <p class="font-black text-gray-900 mb-2 uppercase text-sm tracking-tight text-center">SAYIN <span id="hl-error-name" class="text-pink-600">MÜŞTERİMİZ</span>,</p>
-                <p class="text-sm text-gray-600 leading-relaxed mb-4 text-center">
-                    Mevcut kayıtlarınızdan dolayı online limit başvurunuz risk politikamız gereği onaylanmamıştır.
-                </p>
-                <p class="text-xs text-gray-700 font-bold italic text-center">
-                    Farklı ödeme seçenekleri ve detaylı değerlendirme için sizi en yakın <strong>Hedef AVM</strong> mağazamıza bekleriz.
-                </p>
+            <h2 class="text-xl font-black mb-1 text-pink-600">Tebrikler!</h2>
+            <p class="text-gray-500 font-bold text-xs mb-4">Ön limitiniz başarıyla oluşturuldu.</p>
+            <div class="hl-limit-box">
+                <span class="text-[9px] font-black text-gray-500 uppercase block mb-1">ONAYLANAN ÖN LİMİTİNİZ</span>
+                <div class="hl-limit-amount">₺<span id="hl-final-amount">120.000</span></div>
             </div>
+            <div class="bg-blue-50 p-4 rounded-xl text-left mb-6 border-l-4 border-pink-400">
+                <p class="text-xs text-gray-700 leading-relaxed">🚀 <strong>Hemen Alışverişe Başlayın!</strong><br>Onaylı limitinizi kullanmak için size en yakın <strong>Hedef AVM</strong> mağazasını ziyaret edebilir, avantajlı fiyatlardan yararlanabilirsiniz.</p>
+            </div>
+            <button type="button" class="hl-btn-reload w-full py-3 bg-gray-50 text-gray-800 font-bold rounded-xl border border-gray-100 text-sm">Yeni Sorgu Başlat</button>
+        </div>
 
-            <button type="button" class="hl-btn-reload w-full py-3 bg-gray-50 text-gray-800 font-bold rounded-xl border border-gray-100">Yeni Sorgu Başlat</button>
+        <!-- RED EKRANI (Mağazaya Davet) -->
+        <div id="hl-error-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
+            <div class="w-16 h-16 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+            </div>
+            <h2 class="text-xl font-black mb-4 text-pink-600">Değerlendirme İçin Şubemize Bekliyoruz</h2>
+            <div class="bg-gray-50 p-6 rounded-2xl text-left mb-6 border border-gray-100">
+                <p class="font-black text-gray-900 mb-2 uppercase text-xs">SAYIN <span id="hl-error-name" class="text-pink-600">MÜŞTERİMİZ</span>,</p>
+                <p class="text-xs text-gray-600 leading-relaxed mb-4">Online üzerinden yapılan ön değerlendirme sonuçlanamamıştır.</p>
+                <p class="text-xs text-gray-700 font-bold italic">Kesin limit tespiti ve size özel ödeme seçenekleri için lütfen en yakın <strong>Hedef AVM</strong> mağazamıza kimliğiniz ile başvurun.</p>
+            </div>
+            <button type="button" class="hl-btn-reload w-full py-3 bg-gray-50 text-gray-800 font-bold rounded-xl border border-gray-100 text-sm">Yeni Sorgu Başlat</button>
         </div>
 
     </div>
@@ -333,6 +253,9 @@
 
 <script>
 (function() {
+    // BURAYA KILAVUZDAKİ WEB UYGULAMASI URL'SİNİ YAPIŞTIRIN
+    const SCRIPT_URL = ""; 
+
     var hlState = { hasIcra: null, isWorking: null, hasTapu: null, age: null, gender: null };
 
     function runHedefCode() {
@@ -341,22 +264,15 @@
 
         document.addEventListener('click', function(e) {
             var el = e.target;
-            
             var optBtn = el.closest('.hl-opt-btn');
             if (optBtn) {
                 e.preventDefault();
-                e.stopPropagation();
-                
                 var parent = optBtn.closest('.hl-options-grid');
                 var key = parent.getAttribute('data-key');
                 var val = optBtn.getAttribute('data-val');
-
                 hlState[key] = val;
-
                 var btns = parent.querySelectorAll('.hl-opt-btn');
-                for (var i = 0; i < btns.length; i++) {
-                    btns[i].classList.remove('active');
-                }
+                for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
                 optBtn.classList.add('active');
                 return false;
             }
@@ -367,16 +283,17 @@
                 return false;
             }
 
-            if (el.closest('.hl-btn-reload')) {
-                window.location.reload();
-            }
+            if (el.closest('.hl-btn-reload')) { window.location.reload(); }
         }, true);
 
         function calculateLimit() {
             var name = document.getElementById('hl-input-name').value.trim();
             var surname = document.getElementById('hl-input-surname').value.trim();
+            var phone = document.getElementById('hl-input-phone').value.trim();
+            var city = document.getElementById('hl-input-city').value.trim();
+            var district = document.getElementById('hl-input-district').value.trim();
             
-            if (!name || !surname || !hlState.hasIcra || !hlState.isWorking || !hlState.hasTapu || !hlState.age || !hlState.gender) {
+            if (!name || !surname || !phone || !city || !district || !hlState.hasIcra || !hlState.isWorking || !hlState.hasTapu || !hlState.age || !hlState.gender) {
                 var alertBox = document.getElementById('hl-alert');
                 alertBox.style.display = 'block';
                 alertBox.style.animation = 'hlSlideDownAlert 0.4s ease forwards';
@@ -392,22 +309,32 @@
             btn.innerText = "Hesaplanıyor...";
             btn.disabled = true;
 
+            // Mantık
+            var approved = false;
+            var amount = "0";
+            if (hlState.hasIcra === 'evet') {
+                approved = false;
+            } else if (hlState.isWorking === 'evet' && hlState.hasTapu === 'evet') {
+                approved = true;
+                amount = "120.000";
+            } else if (hlState.isWorking === 'hayir' && hlState.hasIcra === 'hayir' && hlState.hasTapu === 'evet') {
+                approved = true;
+                amount = "110.000";
+            } else {
+                approved = false;
+            }
+
+            // Sheets'e gönder
+            if(SCRIPT_URL) {
+                const params = new URLSearchParams({
+                    name: name, surname: surname, phone: phone, city: city, district: district,
+                    hasIcra: hlState.hasIcra, isWorking: hlState.isWorking, hasTapu: hlState.hasTapu,
+                    age: hlState.age, gender: hlState.gender, status: approved ? "Onay" : "Mağaza", amount: amount
+                });
+                fetch(SCRIPT_URL + "?" + params.toString(), { method: 'POST', mode: 'no-cors' });
+            }
+
             setTimeout(function() {
-                var approved = false;
-                var amount = "0";
-
-                if (hlState.hasIcra === 'evet') {
-                    approved = false;
-                } else if (hlState.isWorking === 'evet' && hlState.hasTapu === 'evet') {
-                    approved = true;
-                    amount = "120.000";
-                } else if (hlState.isWorking === 'hayir' && hlState.hasIcra === 'hayir' && hlState.hasTapu === 'evet') {
-                    approved = true;
-                    amount = "110.000";
-                } else {
-                    approved = false;
-                }
-
                 document.getElementById('hl-form-content').classList.add('hl-hidden');
                 if (approved) {
                     document.getElementById('hl-final-amount').innerText = amount;
