@@ -232,7 +232,7 @@
             <button type="button" class="hl-btn-reload w-full py-3 bg-gray-50 text-gray-800 font-bold rounded-xl border border-gray-100 text-sm">Yeni Sorgu Başlat</button>
         </div>
 
-        <!-- RED EKRANI (Mağazaya Davet) -->
+        <!-- RED EKRANI -->
         <div id="hl-error-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
             <div class="w-16 h-16 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
@@ -241,9 +241,9 @@
             </div>
             <h2 class="text-xl font-black mb-4 text-pink-600">Değerlendirme İçin Şubemize Bekliyoruz</h2>
             <div class="bg-gray-50 p-6 rounded-2xl text-left mb-6 border border-gray-100">
-                <p class="font-black text-gray-900 mb-2 uppercase text-xs">SAYIN <span id="hl-error-name" class="text-pink-600">MÜŞTERİMİZ</span>,</p>
-                <p class="text-xs text-gray-600 leading-relaxed mb-4">Online üzerinden yapılan ön değerlendirme sonuçlanamamıştır.</p>
-                <p class="text-xs text-gray-700 font-bold italic">Kesin limit tespiti ve size özel ödeme seçenekleri için lütfen en yakın <strong>Hedef AVM</strong> mağazamıza kimliğiniz ile başvurun.</p>
+                <p class="font-black text-gray-900 mb-2 uppercase text-xs text-center">SAYIN <span id="hl-error-name" class="text-pink-600">MÜŞTERİMİZ</span>,</p>
+                <p class="text-xs text-gray-600 leading-relaxed mb-4 text-center">Online üzerinden yapılan ön değerlendirme sonuçlanamamıştır.</p>
+                <p class="text-xs text-gray-700 font-bold italic text-center">Kesin limit tespiti ve size özel ödeme seçenekleri için lütfen en yakın <strong>Hedef AVM</strong> mağazamıza kimliğiniz ile başvurun.</p>
             </div>
             <button type="button" class="hl-btn-reload w-full py-3 bg-gray-50 text-gray-800 font-bold rounded-xl border border-gray-100 text-sm">Yeni Sorgu Başlat</button>
         </div>
@@ -253,8 +253,7 @@
 
 <script>
 (function() {
-    // BURAYA KILAVUZDAKİ WEB UYGULAMASI URL'SİNİ YAPIŞTIRIN
-    const SCRIPT_URL = ""; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiaQvyZG-SdpNxDCk2flmhVEcBDz4aCWoX-OMR3-JAlk2JUTYbe5rIYLw-yGUA14uG/exec"; 
 
     var hlState = { hasIcra: null, isWorking: null, hasTapu: null, age: null, gender: null };
 
@@ -267,12 +266,18 @@
             var optBtn = el.closest('.hl-opt-btn');
             if (optBtn) {
                 e.preventDefault();
+                e.stopPropagation();
+                
                 var parent = optBtn.closest('.hl-options-grid');
                 var key = parent.getAttribute('data-key');
                 var val = optBtn.getAttribute('data-val');
+
                 hlState[key] = val;
+
                 var btns = parent.querySelectorAll('.hl-opt-btn');
-                for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+                for (var i = 0; i < btns.length; i++) {
+                    btns[i].classList.remove('active');
+                }
                 optBtn.classList.add('active');
                 return false;
             }
@@ -283,7 +288,9 @@
                 return false;
             }
 
-            if (el.closest('.hl-btn-reload')) { window.location.reload(); }
+            if (el.closest('.hl-btn-reload')) {
+                window.location.reload();
+            }
         }, true);
 
         function calculateLimit() {
@@ -309,9 +316,9 @@
             btn.innerText = "Hesaplanıyor...";
             btn.disabled = true;
 
-            // Mantık
             var approved = false;
             var amount = "0";
+
             if (hlState.hasIcra === 'evet') {
                 approved = false;
             } else if (hlState.isWorking === 'evet' && hlState.hasTapu === 'evet') {
@@ -324,7 +331,6 @@
                 approved = false;
             }
 
-            // Sheets'e gönder
             if(SCRIPT_URL) {
                 const params = new URLSearchParams({
                     name: name, surname: surname, phone: phone, city: city, district: district,
