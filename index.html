@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -45,11 +46,12 @@
 
         #hedef-limit-form-wrapper .hl-container {
             background: #ffffff !important;
+            opacity: 1 !important;
             width: 100%;
-            max-width: 750px;
-            padding: 25px 20px;
-            border-radius: 30px;
-            box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.25);
+            max-width: 820px; 
+            padding: 25px 25px; 
+            border-radius: 24px;
+            box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.25);
             margin: 0 auto;
             position: relative;
             pointer-events: auto !important;
@@ -58,7 +60,8 @@
 
         @media (min-width: 768px) {
             #hedef-limit-form-wrapper .hl-container {
-                padding: 35px 50px;
+                padding: 30px 45px;
+                border-radius: 35px;
             }
         }
 
@@ -69,7 +72,7 @@
 
         @keyframes hlFadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes hlSlideUp {
-            from { opacity: 0; transform: translateY(40px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
         @keyframes hlShake {
@@ -114,10 +117,10 @@
             line-height: 1.3;
         }
 
-        #hedef-limit-form-wrapper input, 
+        #hedef-limit-form-wrapper input,
         #hedef-limit-form-wrapper select {
             width: 100%;
-            padding: 12px 16px;
+            padding: 11px 16px;
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             font-size: 15px;
@@ -128,7 +131,7 @@
             transition: all 0.2s ease;
         }
 
-        #hedef-limit-form-wrapper input:focus, 
+        #hedef-limit-form-wrapper input:focus,
         #hedef-limit-form-wrapper select:focus {
             border-color: var(--hl-primary);
             background-color: #ffffff;
@@ -136,7 +139,7 @@
         }
 
         #hedef-limit-form-wrapper .hl-opt-btn {
-            height: 48px;
+            height: 46px;
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             background: #ffffff;
@@ -156,11 +159,12 @@
             border-color: var(--hl-primary) !important;
             color: #ffffff !important;
             box-shadow: 0 8px 15px -4px rgba(233, 30, 99, 0.3);
+            font-weight: 800 !important;
         }
 
         #hedef-limit-form-wrapper .hl-submit-btn {
             width: 100%;
-            padding: 18px;
+            padding: 16px;
             background: linear-gradient(135deg, var(--hl-primary), var(--hl-primary-dark));
             color: #fff !important;
             border: none;
@@ -214,9 +218,9 @@
         .hl-hidden { display: none !important; }
 
         @media (max-width: 640px) {
-            #hedef-limit-form-wrapper .hl-container { padding: 25px 15px; }
-            #hedef-limit-form-wrapper .hl-header h2 { font-size: 24px; }
-            #hedef-limit-form-wrapper .hl-limit-amount { font-size: 48px; }
+            #hedef-limit-form-wrapper .hl-container { padding: 20px 15px; }
+            #hedef-limit-form-wrapper .hl-header h2 { font-size: 22px; }
+            #hedef-limit-form-wrapper .hl-limit-amount { font-size: 46px; }
         }
     </style>
 </head>
@@ -231,14 +235,14 @@
         <div id="hl-form-content">
             <div class="hl-header">
                 <h2>Limit Tespit Formu</h2>
-                <p class="text-[13px] text-gray-500 font-medium">Size özel alışveriş limitinizi saniyeler içinde öğrenin.</p>
+                <p class="text-[13px] text-gray-500 font-medium">Saniyeler içinde taksit limitinizi belirleyelim.</p>
             </div>
 
-            <!-- Kimlik ve İsim Bilgileri -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div class="md:col-span-2">
+            <!-- Kişisel Bilgiler Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
                     <label class="hl-label">TC Kimlik No *</label>
-                    <input type="tel" id="hl-input-tc" placeholder="11 Haneli TC Kimlik No" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input type="tel" id="hl-input-tc" placeholder="TC Kimlik No" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                 </div>
                 <div>
                     <label class="hl-label">Adınız *</label>
@@ -250,8 +254,8 @@
                 </div>
             </div>
 
-            <!-- İletişim ve Şehir -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5">
+            <!-- İletişim Bilgileri Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
                 <div>
                     <label class="hl-label">Telefon No *</label>
                     <input type="tel" id="hl-input-phone" placeholder="05XX XXX XX XX">
@@ -276,15 +280,15 @@
                 <div>
                     <p class="hl-question">Aktif icra dava dosyanız var mı? *</p>
                     <div class="grid grid-cols-2 gap-2 hl-options-grid" data-key="hasIcra">
-                        <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
-                        <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
+                        <button type="button" class="hl-opt-btn" data-val="Evet">Evet</button>
+                        <button type="button" class="hl-opt-btn" data-val="Hayır">Hayır</button>
                     </div>
                 </div>
                 <div>
                     <p class="hl-question">Aktif çalışıyor musunuz? / Emekli misiniz? *</p>
                     <div class="grid grid-cols-2 gap-2 hl-options-grid" data-key="isWorking">
-                        <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
-                        <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
+                        <button type="button" class="hl-opt-btn" data-val="Evet">Evet</button>
+                        <button type="button" class="hl-opt-btn" data-val="Hayır">Hayır</button>
                     </div>
                 </div>
             </div>
@@ -293,8 +297,8 @@
                 <div>
                     <p class="hl-question">Üzerinizde kayıtlı tapu var mı? *</p>
                     <div class="grid grid-cols-2 gap-2 hl-options-grid" data-key="hasTapu">
-                        <button type="button" class="hl-opt-btn" data-val="evet">Evet</button>
-                        <button type="button" class="hl-opt-btn" data-val="hayir">Hayır</button>
+                        <button type="button" class="hl-opt-btn" data-val="Evet">Evet</button>
+                        <button type="button" class="hl-opt-btn" data-val="Hayır">Hayır</button>
                     </div>
                 </div>
                 <div>
@@ -302,7 +306,7 @@
                     <div class="grid grid-cols-3 gap-1 hl-options-grid" data-key="age">
                         <button type="button" class="hl-opt-btn text-[11px]" data-val="18-26">18-26</button>
                         <button type="button" class="hl-opt-btn text-[11px]" data-val="27-35">27-35</button>
-                        <button type="button" class="hl-opt-btn text-[11px]" data-val="36+">36+</button>
+                        <button type="button" class="hl-opt-btn text-[11px]" data-val="36+">36 ve üzeri</button>
                     </div>
                 </div>
             </div>
@@ -310,44 +314,45 @@
             <div class="mt-5 mb-5">
                 <p class="hl-question">Cinsiyetiniz? *</p>
                 <div class="grid grid-cols-2 gap-3 hl-options-grid" data-key="gender">
-                    <button type="button" class="hl-opt-btn" data-val="kadin">Kadın</button>
-                    <button type="button" class="hl-opt-btn" data-val="erkek">Erkek</button>
+                    <button type="button" class="hl-opt-btn" data-val="Kadın">Kadın</button>
+                    <button type="button" class="hl-opt-btn" data-val="Erkek">Erkek</button>
                 </div>
             </div>
 
             <button type="button" id="hl-trigger-calculate" class="hl-submit-btn">Limitimi Hesapla</button>
         </div>
 
-        <!-- SONUÇ EKRANLARI (DEĞİŞMEDİ) -->
+        <!-- ONAY EKRANI -->
         <div id="hl-success-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
-            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
                 </svg>
             </div>
-            <h2 class="text-3xl font-black mb-1 text-pink-600">Tebrikler!</h2>
-            <p class="text-gray-600 font-bold text-base mb-6">Limitiniz başarıyla tanımlandı.</p>
+            <h2 class="text-3xl font-black mb-2 text-pink-600">Tebrikler!</h2>
+            <p class="text-gray-600 font-bold text-lg mb-6">Limitiniz başarıyla tanımlandı.</p>
             <div class="hl-limit-box">
                 <span class="text-xs font-black text-gray-500 uppercase block mb-1">ONAYLANAN ÖN LİMİTİNİZ</span>
-                <div class="hl-limit-amount">₺<span id="hl-final-amount">120.000</span></div>
+                <div class="hl-limit-amount">₺<span id="hl-final-amount">0</span></div>
             </div>
-            <div class="bg-blue-50 p-6 rounded-2xl text-left mb-6 border-l-8 border-pink-400">
-                <p class="text-base text-gray-800 leading-relaxed">🚀 <strong>Şimdi Alışveriş Zamanı!</strong><br>Bu limit ile Türkiye genelindeki tüm <strong>Hedef AVM</strong> mağazalarımızdan alışverişe başlayabilirsiniz.</p>
+            <div class="bg-blue-50 p-6 rounded-2xl text-left mb-8 border-l-8 border-pink-400 shadow-sm">
+                <p class="text-base text-gray-800 leading-relaxed">🚀 <strong>Şimdi Alışveriş Zamanı!</strong><br>Bu limit ile Türkiye genelindeki tüm <strong>Hedef AVM</strong> mağazalarımızdan, elden taksit avantajıyla alışverişe hemen başlayabilirsiniz.</p>
             </div>
             <button type="button" class="hl-reload-btn w-full py-4 bg-gray-900 text-white font-black rounded-2xl uppercase tracking-widest hover:bg-black transition-all">Yeni Sorgu Başlat</button>
         </div>
 
+        <!-- RED EKRANI -->
         <div id="hl-error-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
             <div class="w-20 h-20 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M8 16a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
                 </svg>
             </div>
-            <h2 class="text-2xl font-black mb-4 text-pink-600">Değerlendirme İçin<br>Şubemize Bekliyoruz</h2>
-            <div class="bg-gray-50 p-8 rounded-3xl text-left mb-6 border border-gray-200">
+            <h2 class="text-3xl font-black mb-6 text-pink-600 leading-tight">Değerlendirme İçin<br>Şubemize Bekliyoruz</h2>
+            <div class="bg-gray-50 p-8 rounded-3xl text-left mb-8 border border-gray-200">
                 <p class="font-black text-gray-900 mb-3 uppercase text-base">SAYIN <span id="hl-error-name" class="text-pink-600">MÜŞTERİMİZ</span>,</p>
                 <p class="text-base text-gray-700 leading-relaxed mb-4">Online ön değerlendirme sistemimiz şu an için başvurunuzu onaylayamamıştır.</p>
-                <p class="text-base text-gray-800 font-bold italic border-t pt-4 border-gray-200">Sizi en yakın <strong>Hedef AVM</strong> mağazamıza davet ediyoruz.</p>
+                <p class="text-base text-gray-800 font-bold italic border-t pt-4 border-gray-200">Sizin için en uygun ödeme seçeneklerini belirleyebilmemiz adına sizi en yakın <strong>Hedef AVM</strong> mağazamıza davet ediyoruz.</p>
             </div>
             <button type="button" class="hl-reload-btn w-full py-4 bg-gray-900 text-white font-black rounded-2xl border border-gray-100 uppercase tracking-widest">Geri Dön</button>
         </div>
@@ -360,6 +365,38 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiaQvyZG-SdpNxDCk2flmhVEcBDz4aCWoX-OMR3-JAlk2JUTYbe5rIYLw-yGUA14uG/exec"; 
 
     var hlState = { hasIcra: null, isWorking: null, hasTapu: null, age: null, gender: null };
+
+    // Excel Dosyasıyla (CSV) %100 Birebir Eşleşen Karar Matrisi
+    function getVariationLimit(state) {
+        // İcra Evet ise doğrudan Red (1-24 arası varyasyonlar)
+        if (state.hasIcra === 'Evet') {
+            return { approved: false, limit: "" }; 
+        }
+
+        // Kural 1: Çalışıyor (Evet) ve Tapusu Var (Evet)
+        if (state.isWorking === 'Evet' && state.hasTapu === 'Evet') {
+            if (state.age === '18-26') return { approved: true, limit: "150.000" }; // Varyasyon 25-26
+            if (state.age === '27-35') return { approved: true, limit: "150.000" }; // Varyasyon 27-28
+            if (state.age === '36+') return { approved: true, limit: "200.000" };   // Varyasyon 29-30
+        }
+        
+        // Kural 2: Çalışıyor (Evet) ve Tapusu Yok (Hayır)
+        if (state.isWorking === 'Evet' && state.hasTapu === 'Hayır') {
+            if (state.age === '18-26') return { approved: true, limit: "100.000" }; // Varyasyon 31-32
+            if (state.age === '27-35') return { approved: true, limit: "100.000" }; // Varyasyon 33-34
+            if (state.age === '36+') return { approved: true, limit: "150.000" };   // Varyasyon 35-36
+        }
+
+        // Kural 3: Çalışmıyor (Hayır) ve Tapusu Var (Evet)
+        if (state.isWorking === 'Hayır' && state.hasTapu === 'Evet') {
+            if (state.age === '18-26') return { approved: true, limit: "75.000" };  // Varyasyon 37-38
+            if (state.age === '27-35') return { approved: true, limit: "100.000" }; // Varyasyon 39-40
+            if (state.age === '36+') return { approved: true, limit: "150.000" };   // Varyasyon 41-42
+        }
+
+        // Kural 4: Çalışmıyor (Hayır) ve Tapusu Yok (Hayır) -> Reddedildi (Varyasyon 43-48)
+        return { approved: false, limit: "" };
+    }
 
     function runHedefCode() {
         var wrapper = document.getElementById('hedef-limit-form-wrapper');
@@ -416,25 +453,15 @@
             btn.innerText = "SORGULANIYOR...";
             btn.disabled = true;
 
-            var approved = false;
-            var amount = "";
-
-            if (hlState.hasIcra === 'evet') {
-                approved = false;
-            } else if (hlState.isWorking === 'evet' && hlState.hasTapu === 'evet') {
-                approved = true;
-                amount = "120.000";
-            } else if (hlState.isWorking === 'hayir' && hlState.hasIcra === 'hayir' && hlState.hasTapu === 'evet') {
-                approved = true;
-                amount = "110.000";
-            } else {
-                approved = false;
-            }
+            // Varyasyon Matrisi Çalıştırılıyor (100% Kararlı ve Excel Senkronize)
+            var decision = getVariationLimit(hlState);
+            var approved = decision.approved;
+            var amount = decision.limit;
 
             if(SCRIPT_URL) {
                 try {
                     const formData = new URLSearchParams();
-                    formData.append('tc', tc); // Yeni alan gönderimi
+                    formData.append('tc', tc);
                     formData.append('name', name);
                     formData.append('surname', surname);
                     formData.append('phone', phone);
@@ -485,3 +512,5 @@
 
 </body>
 </html>
+
+```
