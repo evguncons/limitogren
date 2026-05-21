@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -27,6 +26,7 @@
             padding: 15px;
             box-sizing: border-box;
             
+            /* Arkaplan Görseli */
             background-color: #fdf2f8; 
             background-image: url('https://www.upload.ee/image/19322971/magnific_modern-ecommerce-campaign_2939673108.png');
             background-size: cover;
@@ -45,6 +45,7 @@
         }
 
         #hedef-limit-form-wrapper .hl-container {
+            /* Tam Beyaz, Opak ve Genişletilmiş Form Kartı */
             background: #ffffff !important;
             opacity: 1 !important;
             width: 100%;
@@ -341,7 +342,7 @@
             <button type="button" class="hl-reload-btn w-full py-4 bg-gray-900 text-white font-black rounded-2xl uppercase tracking-widest hover:bg-black transition-all">Yeni Sorgu Başlat</button>
         </div>
 
-        <!-- RED EKRANI -->
+        <!-- RED EKRANI (Mağazaya Davet) -->
         <div id="hl-error-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
             <div class="w-20 h-20 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
@@ -373,28 +374,45 @@
             return { approved: false, limit: "" }; 
         }
 
+        const calisma = state.isWorking;
+        const tapu = state.hasTapu;
+        const age = state.age;
+        const gender = state.gender;
+
         // Kural 1: Çalışıyor (Evet) ve Tapusu Var (Evet)
-        if (state.isWorking === 'Evet' && state.hasTapu === 'Evet') {
-            if (state.age === '18-26') return { approved: true, limit: "150.000" }; // Varyasyon 25-26
-            if (state.age === '27-35') return { approved: true, limit: "150.000" }; // Varyasyon 27-28
-            if (state.age === '36+') return { approved: true, limit: "200.000" };   // Varyasyon 29-30
+        if (calisma === 'Evet' && tapu === 'Evet') {
+            if (age === '18-26') return { approved: true, limit: "150.000" }; // Varyasyon 25-26
+            if (age === '27-35') return { approved: true, limit: "200.000" }; // Varyasyon 27-28
+            if (age === '36+') return { approved: true, limit: "200.000" };   // Varyasyon 29-30
         }
         
         // Kural 2: Çalışıyor (Evet) ve Tapusu Yok (Hayır)
-        if (state.isWorking === 'Evet' && state.hasTapu === 'Hayır') {
-            if (state.age === '18-26') return { approved: true, limit: "100.000" }; // Varyasyon 31-32
-            if (state.age === '27-35') return { approved: true, limit: "100.000" }; // Varyasyon 33-34
-            if (state.age === '36+') return { approved: true, limit: "150.000" };   // Varyasyon 35-36
+        if (calisma === 'Evet' && tapu === 'Hayır') {
+            if (age === '18-26') return { approved: true, limit: "150.000" }; // Varyasyon 31-32
+            if (age === '27-35') return { approved: true, limit: "150.000" }; // Varyasyon 33-34
+            if (age === '36+') return { approved: true, limit: "150.000" };   // Varyasyon 35-36
         }
 
         // Kural 3: Çalışmıyor (Hayır) ve Tapusu Var (Evet)
-        if (state.isWorking === 'Hayır' && state.hasTapu === 'Evet') {
-            if (state.age === '18-26') return { approved: true, limit: "75.000" };  // Varyasyon 37-38
-            if (state.age === '27-35') return { approved: true, limit: "100.000" }; // Varyasyon 39-40
-            if (state.age === '36+') return { approved: true, limit: "150.000" };   // Varyasyon 41-42
+        if (calisma === 'Hayır' && tapu === 'Evet') {
+            if (age === '18-26') return { approved: true, limit: "100.000" }; // Varyasyon 37-38
+            if (age === '27-35') {
+                if (gender === 'Kadın') return { approved: true, limit: "75.000" };  // Varyasyon 39
+                if (gender === 'Erkek') return { approved: true, limit: "100.000" }; // Varyasyon 40
+            }
+            if (age === '36+') return { approved: true, limit: "100.000" };   // Varyasyon 41-42
         }
 
-        // Kural 4: Çalışmıyor (Hayır) ve Tapusu Yok (Hayır) -> Reddedildi (Varyasyon 43-48)
+        // Kural 4: Çalışmıyor (Hayır) ve Tapusu Yok (Hayır) -> Reddedildi / Mağaza yönlendirmesi
+        if (calisma === 'Hayır' && tapu === 'Hayır') {
+            if (gender === 'Kadın') {
+                return { approved: true, limit: "75.000" }; // Varyasyon 43, 45, 47
+            }
+            if (gender === 'Erkek') {
+                return { approved: false, limit: "" }; // Varyasyon 44, 46, 48 (MAĞAZA)
+            }
+        }
+
         return { approved: false, limit: "" };
     }
 
@@ -512,5 +530,3 @@
 
 </body>
 </html>
-
-```
