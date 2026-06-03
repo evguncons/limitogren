@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hedef AVM - Limit Tespit Formu</title>
+    <title>Hedef AVM - Limit Tespit Formu Mağaza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -255,8 +255,8 @@
                 </div>
             </div>
 
-            <!-- İletişim Bilgileri Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+            <!-- İletişim Bilgileri Grid (4 Kolonlu Ultra Uyumlu Tasarım) -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-5">
                 <div>
                     <label class="hl-label">Telefon No *</label>
                     <input type="tel" id="hl-input-phone" placeholder="05XX XXX XX XX">
@@ -273,6 +273,24 @@
                 <div>
                     <label class="hl-label">İlçe *</label>
                     <input type="text" id="hl-input-district" placeholder="Örn: Kadıköy">
+                </div>
+                <div>
+                    <label class="hl-label">Şube Seçiniz *</label>
+                    <select id="hl-input-branch">
+                        <option value="" disabled selected>Şube Seçiniz</option>
+                        <option value="İnegöl Şubesi">İnegöl Şubesi</option>
+                        <option value="Paşabahçe Şubesi">Paşabahçe Şubesi</option>
+                        <option value="Çekmeköy Şubesi">Çekmeköy Şubesi</option>
+                        <option value="İzmit Şubesi">İzmit Şubesi</option>
+                        <option value="Gölcük Şubesi">Gölcük Şubesi</option>
+                        <option value="Körfez Şubesi">Körfez Şubesi</option>
+                        <option value="Derince Şubesi">Derince Şubesi</option>
+                        <option value="Sultanbeyli Şubesi">Sultanbeyli Şubesi</option>
+                        <option value="Yenidoğan Şubesi">Yenidoğan Şubesi</option>
+                        <option value="Kavacık Şubesi">Kavacık Şubesi</option>
+                        <option value="Çayırova Şubesi">Çayırova Şubesi</option>
+                        <option value="Gebze Şubesi">Gebze Şubesi</option>
+                    </select>
                 </div>
             </div>
 
@@ -369,7 +387,6 @@
 
     // Excel Dosyasıyla (CSV) %100 Birebir Eşleşen Karar Matrisi
     function getVariationLimit(state) {
-        // İcra Evet ise doğrudan Red (1-24 arası varyasyonlar)
         if (state.hasIcra === 'Evet') {
             return { approved: false, limit: "" }; 
         }
@@ -381,35 +398,35 @@
 
         // Kural 1: Çalışıyor (Evet) ve Tapusu Var (Evet)
         if (calisma === 'Evet' && tapu === 'Evet') {
-            if (age === '18-26') return { approved: true, limit: "150.000" }; // Varyasyon 25-26
-            if (age === '27-35') return { approved: true, limit: "200.000" }; // Varyasyon 27-28
-            if (age === '36+') return { approved: true, limit: "200.000" };   // Varyasyon 29-30
+            if (age === '18-26') return { approved: true, limit: "150.000" }; 
+            if (age === '27-35') return { approved: true, limit: "200.000" }; 
+            if (age === '36+') return { approved: true, limit: "200.000" };   
         }
         
         // Kural 2: Çalışıyor (Evet) ve Tapusu Yok (Hayır)
         if (calisma === 'Evet' && tapu === 'Hayır') {
-            if (age === '18-26') return { approved: true, limit: "150.000" }; // Varyasyon 31-32
-            if (age === '27-35') return { approved: true, limit: "150.000" }; // Varyasyon 33-34
-            if (age === '36+') return { approved: true, limit: "150.000" };   // Varyasyon 35-36
+            if (age === '18-26') return { approved: true, limit: "150.000" }; 
+            if (age === '27-35') return { approved: true, limit: "150.000" }; 
+            if (age === '36+') return { approved: true, limit: "150.000" };   
         }
 
         // Kural 3: Çalışmıyor (Hayır) ve Tapusu Var (Evet)
         if (calisma === 'Hayır' && tapu === 'Evet') {
-            if (age === '18-26') return { approved: true, limit: "100.000" }; // Varyasyon 37-38
+            if (age === '18-26') return { approved: true, limit: "100.000" }; 
             if (age === '27-35') {
-                if (gender === 'Kadın') return { approved: true, limit: "75.000" };  // Varyasyon 39
-                if (gender === 'Erkek') return { approved: true, limit: "100.000" }; // Varyasyon 40
+                if (gender === 'Kadın') return { approved: true, limit: "75.000" };  
+                if (gender === 'Erkek') return { approved: true, limit: "100.000" }; 
             }
-            if (age === '36+') return { approved: true, limit: "100.000" };   // Varyasyon 41-42
+            if (age === '36+') return { approved: true, limit: "100.000" };   
         }
 
-        // Kural 4: Çalışmıyor (Hayır) ve Tapusu Yok (Hayır) -> Reddedildi / Mağaza yönlendirmesi
+        // Kural 4: Çalışmıyor (Hayır) ve Tapusu Yok (Hayır)
         if (calisma === 'Hayır' && tapu === 'Hayır') {
             if (gender === 'Kadın') {
-                return { approved: true, limit: "75.000" }; // Varyasyon 43, 45, 47
+                return { approved: true, limit: "75.000" }; 
             }
             if (gender === 'Erkek') {
-                return { approved: false, limit: "" }; // Varyasyon 44, 46, 48 (MAĞAZA)
+                return { approved: false, limit: "" }; 
             }
         }
 
@@ -454,8 +471,9 @@
             var phone = document.getElementById('hl-input-phone').value.trim();
             var city = document.getElementById('hl-input-city').value;
             var district = document.getElementById('hl-input-district').value.trim();
+            var branch = document.getElementById('hl-input-branch').value;
             
-            if (!tc || tc.length !== 11 || !name || !surname || !phone || !city || !district || !hlState.hasIcra || !hlState.isWorking || !hlState.hasTapu || !hlState.age || !hlState.gender) {
+            if (!tc || tc.length !== 11 || !name || !surname || !phone || !city || !district || !branch || !hlState.hasIcra || !hlState.isWorking || !hlState.hasTapu || !hlState.age || !hlState.gender) {
                 var alertBox = document.getElementById('hl-alert');
                 alertBox.style.display = 'block';
                 alertBox.style.animation = 'hlSlideDownAlert 0.4s ease forwards';
@@ -471,13 +489,14 @@
             btn.innerText = "SORGULANIYOR...";
             btn.disabled = true;
 
-            // Varyasyon Matrisi Çalıştırılıyor (100% Kararlı ve Excel Senkronize)
+            // Varyasyon Matrisi Çalıştırılıyor
             var decision = getVariationLimit(hlState);
             var approved = decision.approved;
             var amount = decision.limit;
 
             if(SCRIPT_URL) {
                 try {
+                    // Veriyi standard URLSearchParams formatında ve Apps Script doPost parametreleriyle tam uyumlu gönderiyoruz
                     const formData = new URLSearchParams();
                     formData.append('tc', tc);
                     formData.append('name', name);
@@ -485,6 +504,7 @@
                     formData.append('phone', phone);
                     formData.append('city', city);
                     formData.append('district', district);
+                    formData.append('branch', branch); // K Sütunu için şube seçimi parametresi
                     formData.append('hasIcra', hlState.hasIcra);
                     formData.append('isWorking', hlState.isWorking);
                     formData.append('hasTapu', hlState.hasTapu);
