@@ -26,7 +26,6 @@
             padding: 15px;
             box-sizing: border-box;
             
-            /* Arkaplan Görseli */
             background-color: #fdf2f8; 
             background-image: url('https://www.upload.ee/image/19322971/magnific_modern-ecommerce-campaign_2939673108.png');
             background-size: cover;
@@ -45,7 +44,6 @@
         }
 
         #hedef-limit-form-wrapper .hl-container {
-            /* Tam Beyaz, Opak ve Genişletilmiş Form Kartı */
             background: #ffffff !important;
             opacity: 1 !important;
             width: 100%;
@@ -66,7 +64,6 @@
             }
         }
 
-        /* Animasyonlar */
         .hl-fade-in { animation: hlFadeIn 0.8s ease-out forwards; }
         .hl-slide-up { animation: hlSlideUp 0.6s ease-out forwards; }
         .hl-shake { animation: hlShake 0.5s ease-in-out; }
@@ -180,9 +177,17 @@
             transition: all 0.3s ease;
         }
 
-        #hedef-limit-form-wrapper .hl-submit-btn:hover {
+        #hedef-limit-form-wrapper .hl-submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
             opacity: 0.95;
+        }
+
+        #hedef-limit-form-wrapper .hl-submit-btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: #64748b !important;
         }
 
         #hedef-limit-form-wrapper .hl-limit-box {
@@ -214,6 +219,7 @@
             z-index: 10000;
             display: none;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            white-space: nowrap;
         }
 
         .hl-hidden { display: none !important; }
@@ -229,6 +235,21 @@
 
 <div id="hedef-limit-form-wrapper">
     <div id="hl-alert">Lütfen tüm alanları eksiksiz doldurunuz!</div>
+
+    <!-- SPAM (MÜKERRER) KONTROLÜ İÇİN ÖZEL UYARI POPUP'I -->
+    <div id="hl-spam-modal" class="fixed inset-0 z-[10005] bg-black bg-opacity-60 flex items-center justify-center hl-hidden hl-fade-in" style="backdrop-filter: blur(2px);">
+        <div class="bg-white rounded-3xl p-6 md:p-8 max-w-sm w-[90%] mx-auto shadow-2xl text-center hl-slide-up relative">
+            <div class="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-black text-gray-900 mb-2">Uyarı!</h3>
+            <p class="text-gray-600 font-medium mb-6 leading-relaxed">Bu ay için başvurunuz sistemimizde kayıtlıdır.<br>Lütfen daha sonra tekrar deneyiniz.</p>
+            <button type="button" id="hl-close-modal" class="w-full py-3 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-colors uppercase tracking-wide">Tamam</button>
+        </div>
+    </div>
 
     <div class="hl-container hl-slide-up" id="hl-main-container">
         
@@ -255,7 +276,7 @@
                 </div>
             </div>
 
-            <!-- İletişim Bilgileri Grid (4 Kolonlu Ultra Uyumlu Tasarım) -->
+            <!-- İletişim Bilgileri Grid -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-5">
                 <div>
                     <label class="hl-label">Telefon No *</label>
@@ -357,7 +378,6 @@
             <div class="bg-blue-50 p-6 rounded-2xl text-left mb-8 border-l-8 border-pink-400 shadow-sm">
                 <p class="text-base text-gray-800 leading-relaxed">🚀 <strong>Şimdi Alışveriş Zamanı!</strong><br>Bu limit ile Türkiye genelindeki tüm <strong>Hedef AVM</strong> mağazalarımızdan, elden taksit avantajıyla alışverişe hemen başlayabilirsiniz.</p>
             </div>
-            <button type="button" class="hl-reload-btn w-full py-4 bg-gray-900 text-white font-black rounded-2xl uppercase tracking-widest hover:bg-black transition-all">Yeni Sorgu Başlat</button>
         </div>
 
         <!-- RED EKRANI (Mağazaya Davet) -->
@@ -373,7 +393,6 @@
                 <p class="text-base text-gray-700 leading-relaxed mb-4">Online ön değerlendirme sistemimiz şu an için başvurunuzu onaylayamamıştır.</p>
                 <p class="text-base text-gray-800 font-bold italic border-t pt-4 border-gray-200">Sizin için en uygun ödeme seçeneklerini belirleyebilmemiz adına sizi en yakın <strong>Hedef AVM</strong> mağazamıza davet ediyoruz.</p>
             </div>
-            <button type="button" class="hl-reload-btn w-full py-4 bg-gray-900 text-white font-black rounded-2xl border border-gray-100 uppercase tracking-widest">Geri Dön</button>
         </div>
 
     </div>
@@ -381,36 +400,51 @@
 
 <script>
 (function() {
+    // URL'Yİ BURAYA YAPIŞTIRIN
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiaQvyZG-SdpNxDCk2flmhVEcBDz4aCWoX-OMR3-JAlk2JUTYbe5rIYLw-yGUA14uG/exec"; 
 
     var hlState = { hasIcra: null, isWorking: null, hasTapu: null, age: null, gender: null };
 
-    // Excel Dosyasıyla (CSV) %100 Birebir Eşleşen Karar Matrisi
-    function getVariationLimit(state) {
-        if (state.hasIcra === 'Evet') {
-            return { approved: false, limit: "" }; 
+    // --- 1. SPAM KONTROLÜ (LOCAL STORAGE) ---
+    function checkLocalStorageSpam() {
+        const now = new Date();
+        const currentMonth = now.getMonth() + "_" + now.getFullYear();
+        const lastSubmit = localStorage.getItem("hedef_limit_submitted_month");
+        
+        if (lastSubmit === currentMonth) {
+            document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
+            return true;
         }
+        return false;
+    }
+
+    function setLocalStorageSpam() {
+        const now = new Date();
+        const currentMonth = now.getMonth() + "_" + now.getFullYear();
+        localStorage.setItem("hedef_limit_submitted_month", currentMonth);
+    }
+
+    // --- 2. VARYASYON (LİMİT) MATRİSİ ---
+    function getVariationLimit(state) {
+        if (state.hasIcra === 'Evet') return { approved: false, limit: "" }; 
 
         const calisma = state.isWorking;
         const tapu = state.hasTapu;
         const age = state.age;
         const gender = state.gender;
 
-        // Kural 1: Çalışıyor (Evet) ve Tapusu Var (Evet)
         if (calisma === 'Evet' && tapu === 'Evet') {
             if (age === '18-26') return { approved: true, limit: "150.000" }; 
             if (age === '27-35') return { approved: true, limit: "200.000" }; 
             if (age === '36+') return { approved: true, limit: "200.000" };   
         }
         
-        // Kural 2: Çalışıyor (Evet) ve Tapusu Yok (Hayır)
         if (calisma === 'Evet' && tapu === 'Hayır') {
             if (age === '18-26') return { approved: true, limit: "150.000" }; 
             if (age === '27-35') return { approved: true, limit: "150.000" }; 
             if (age === '36+') return { approved: true, limit: "150.000" };   
         }
 
-        // Kural 3: Çalışmıyor (Hayır) ve Tapusu Var (Evet)
         if (calisma === 'Hayır' && tapu === 'Evet') {
             if (age === '18-26') return { approved: true, limit: "100.000" }; 
             if (age === '27-35') {
@@ -420,25 +454,44 @@
             if (age === '36+') return { approved: true, limit: "100.000" };   
         }
 
-        // Kural 4: Çalışmıyor (Hayır) ve Tapusu Yok (Hayır)
         if (calisma === 'Hayır' && tapu === 'Hayır') {
-            if (gender === 'Kadın') {
-                return { approved: true, limit: "75.000" }; 
-            }
-            if (gender === 'Erkek') {
-                return { approved: false, limit: "" }; 
-            }
+            if (gender === 'Kadın') return { approved: true, limit: "75.000" }; 
+            if (gender === 'Erkek') return { approved: false, limit: "" }; 
         }
 
         return { approved: false, limit: "" };
+    }
+
+    function showAlert(msg) {
+        var alertBox = document.getElementById('hl-alert');
+        alertBox.innerText = msg;
+        alertBox.style.display = 'block';
+        alertBox.style.animation = 'hlSlideDownAlert 0.4s ease forwards';
+        document.getElementById('hl-main-container').classList.add('hl-shake');
+        setTimeout(function() { 
+            alertBox.style.display = 'none'; 
+            document.getElementById('hl-main-container').classList.remove('hl-shake');
+        }, 3000);
     }
 
     function runHedefCode() {
         var wrapper = document.getElementById('hedef-limit-form-wrapper');
         if (!wrapper) return;
 
+        // Sayfa yüklendiğinde LocalStorage kontrolü
+        if (checkLocalStorageSpam()) {
+             // Form etkileşimlerini bloke etmeyip sadece uyarı gösteriyoruz
+        } 
+
         document.addEventListener('click', function(e) {
             var el = e.target;
+            
+            // Modal kapatma butonu kontrolü
+            if (el.id === 'hl-close-modal' || el.closest('#hl-close-modal')) {
+                document.getElementById('hl-spam-modal').classList.add('hl-hidden');
+                return false;
+            }
+            
             var optBtn = el.closest('.hl-opt-btn');
             if (optBtn) {
                 e.preventDefault();
@@ -458,10 +511,6 @@
                 calculateLimit();
                 return false;
             }
-
-            if (el.closest('.hl-reload-btn')) {
-                window.location.reload();
-            }
         }, true);
 
         async function calculateLimit() {
@@ -474,20 +523,33 @@
             var branch = document.getElementById('hl-input-branch').value;
             
             if (!tc || tc.length !== 11 || !name || !surname || !phone || !city || !district || !branch || !hlState.hasIcra || !hlState.isWorking || !hlState.hasTapu || !hlState.age || !hlState.gender) {
-                var alertBox = document.getElementById('hl-alert');
-                alertBox.style.display = 'block';
-                alertBox.style.animation = 'hlSlideDownAlert 0.4s ease forwards';
-                document.getElementById('hl-main-container').classList.add('hl-shake');
-                setTimeout(function() { 
-                    alertBox.style.display = 'none'; 
-                    document.getElementById('hl-main-container').classList.remove('hl-shake');
-                }, 3000);
+                showAlert("Lütfen tüm alanları eksiksiz doldurunuz!");
                 return;
             }
 
             var btn = document.getElementById('hl-trigger-calculate');
-            btn.innerText = "SORGULANIYOR...";
+            btn.innerText = "KONTROL EDİLİYOR...";
             btn.disabled = true;
+
+            // --- 3. APPS SCRIPT ÜZERİNDEN MÜKERRER (SPAM) KONTROLÜ ---
+            try {
+                const checkResponse = await fetch(SCRIPT_URL + "?phone=" + encodeURIComponent(phone) + "&tc=" + encodeURIComponent(tc), {
+                    method: 'GET'
+                });
+                const checkData = await checkResponse.json();
+                
+                if (checkData.exists) {
+                    document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
+                    setLocalStorageSpam(); // Spam engeline takılanı LocalStorage'a da ekle
+                    btn.innerText = "Limitimi Hesapla"; // Butonu eski haline getir
+                    btn.disabled = false;
+                    return; // İşlemi Durdur
+                }
+            } catch(e) {
+                console.error("Spam kontrolü yapılamadı, işleme devam ediliyor.", e);
+            }
+
+            btn.innerText = "HESAPLANIYOR...";
 
             // Varyasyon Matrisi Çalıştırılıyor
             var decision = getVariationLimit(hlState);
@@ -496,7 +558,6 @@
 
             if(SCRIPT_URL) {
                 try {
-                    // Veriyi standard URLSearchParams formatında ve Apps Script doPost parametreleriyle tam uyumlu gönderiyoruz
                     const formData = new URLSearchParams();
                     formData.append('tc', tc);
                     formData.append('name', name);
@@ -504,7 +565,7 @@
                     formData.append('phone', phone);
                     formData.append('city', city);
                     formData.append('district', district);
-                    formData.append('branch', branch); // K Sütunu için şube seçimi parametresi
+                    formData.append('branch', branch);
                     formData.append('hasIcra', hlState.hasIcra);
                     formData.append('isWorking', hlState.isWorking);
                     formData.append('hasTapu', hlState.hasTapu);
@@ -513,6 +574,7 @@
                     formData.append('status', approved ? "KABUL EDİLDİ" : "REDDEDİLDİ");
                     formData.append('amount', approved ? amount : "");
 
+                    // Fire and forget kaydetme
                     fetch(SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors',
@@ -520,6 +582,9 @@
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: formData.toString()
                     });
+                    
+                    // Başarı durumunda tarayıcıyı kilitle
+                    setLocalStorageSpam();
                 } catch (e) {
                     console.error("Sheets Error:", e);
                 }
@@ -535,7 +600,7 @@
                     document.getElementById('hl-error-content').classList.remove('hl-hidden');
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 1500);
+            }, 1000);
         }
     }
 
