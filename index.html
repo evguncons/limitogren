@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hedef AVM - Limit Tespit Formu Mağaza</title>
+    <title>Hedef AVM - Limit Tespit Formu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -378,9 +378,10 @@
             <div class="bg-blue-50 p-6 rounded-2xl text-left mb-8 border-l-8 border-pink-400 shadow-sm">
                 <p class="text-base text-gray-800 leading-relaxed">🚀 <strong>Şimdi Alışveriş Zamanı!</strong><br>Bu limit ile Türkiye genelindeki tüm <strong>Hedef AVM</strong> mağazalarımızdan, elden taksit avantajıyla alışverişe hemen başlayabilirsiniz.</p>
             </div>
+            <button type="button" class="hl-reload-btn w-full py-4 bg-gray-900 text-white font-black rounded-2xl uppercase tracking-widest hover:bg-black transition-all">Yeni Sorgu Başlat</button>
         </div>
 
-        <!-- RED EKRANI (Mağazaya Davet) -->
+        <!-- RED EKRANI -->
         <div id="hl-error-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
             <div class="w-20 h-20 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
@@ -393,6 +394,7 @@
                 <p class="text-base text-gray-700 leading-relaxed mb-4">Online ön değerlendirme sistemimiz şu an için başvurunuzu onaylayamamıştır.</p>
                 <p class="text-base text-gray-800 font-bold italic border-t pt-4 border-gray-200">Sizin için en uygun ödeme seçeneklerini belirleyebilmemiz adına sizi en yakın <strong>Hedef AVM</strong> mağazamıza davet ediyoruz.</p>
             </div>
+            <button type="button" class="hl-reload-btn w-full py-4 bg-gray-900 text-white font-black rounded-2xl border border-gray-100 uppercase tracking-widest">Geri Dön</button>
         </div>
 
     </div>
@@ -400,19 +402,17 @@
 
 <script>
 (function() {
-    // URL'Yİ BURAYA YAPIŞTIRIN
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiaQvyZG-SdpNxDCk2flmhVEcBDz4aCWoX-OMR3-JAlk2JUTYbe5rIYLw-yGUA14uG/exec"; 
 
     var hlState = { hasIcra: null, isWorking: null, hasTapu: null, age: null, gender: null };
 
-    // --- 1. SPAM KONTROLÜ (LOCAL STORAGE) ---
+    // --- SPAM KONTROLÜ (LOCAL STORAGE) ---
     function checkLocalStorageSpam() {
         const now = new Date();
         const currentMonth = now.getMonth() + "_" + now.getFullYear();
         const lastSubmit = localStorage.getItem("hedef_limit_submitted_month");
         
         if (lastSubmit === currentMonth) {
-            document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
             return true;
         }
         return false;
@@ -424,7 +424,7 @@
         localStorage.setItem("hedef_limit_submitted_month", currentMonth);
     }
 
-    // --- 2. VARYASYON (LİMİT) MATRİSİ ---
+    // --- VARYASYON (LİMİT) MATRİSİ ---
     function getVariationLimit(state) {
         if (state.hasIcra === 'Evet') return { approved: false, limit: "" }; 
 
@@ -478,17 +478,14 @@
         var wrapper = document.getElementById('hedef-limit-form-wrapper');
         if (!wrapper) return;
 
-        // Sayfa yüklendiğinde LocalStorage kontrolü
-        if (checkLocalStorageSpam()) {
-             // Form etkileşimlerini bloke etmeyip sadece uyarı gösteriyoruz
-        } 
-
         document.addEventListener('click', function(e) {
             var el = e.target;
             
-            // Modal kapatma butonu kontrolü
+            // Modal kapatma butonu
             if (el.id === 'hl-close-modal' || el.closest('#hl-close-modal')) {
                 document.getElementById('hl-spam-modal').classList.add('hl-hidden');
+                // Formu sıfırlayıp baştan başlatabiliriz
+                window.location.reload();
                 return false;
             }
             
@@ -511,6 +508,10 @@
                 calculateLimit();
                 return false;
             }
+
+            if (el.closest('.hl-reload-btn')) {
+                window.location.reload();
+            }
         }, true);
 
         async function calculateLimit() {
@@ -531,7 +532,15 @@
             btn.innerText = "KONTROL EDİLİYOR...";
             btn.disabled = true;
 
-            // --- 3. APPS SCRIPT ÜZERİNDEN MÜKERRER (SPAM) KONTROLÜ ---
+            // 1. ADIM: LocalStorage Kontrolü (Hızlı Kontrol)
+            if (checkLocalStorageSpam()) {
+                document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
+                btn.innerText = "Limitimi Hesapla"; 
+                btn.disabled = false;
+                return;
+            }
+
+            // 2. ADIM: Apps Script Üzerinden Sheets Veri Tabanı (Canlı) Kontrolü
             try {
                 const checkResponse = await fetch(SCRIPT_URL + "?phone=" + encodeURIComponent(phone) + "&tc=" + encodeURIComponent(tc), {
                     method: 'GET'
@@ -541,7 +550,7 @@
                 if (checkData.exists) {
                     document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
                     setLocalStorageSpam(); // Spam engeline takılanı LocalStorage'a da ekle
-                    btn.innerText = "Limitimi Hesapla"; // Butonu eski haline getir
+                    btn.innerText = "Limitimi Hesapla";
                     btn.disabled = false;
                     return; // İşlemi Durdur
                 }
@@ -574,7 +583,6 @@
                     formData.append('status', approved ? "KABUL EDİLDİ" : "REDDEDİLDİ");
                     formData.append('amount', approved ? amount : "");
 
-                    // Fire and forget kaydetme
                     fetch(SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors',
