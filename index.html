@@ -381,7 +381,7 @@
             <button type="button" class="hl-reload-btn w-full py-4 bg-gray-900 text-white font-black rounded-2xl uppercase tracking-widest hover:bg-black transition-all">Yeni Sorgu Başlat</button>
         </div>
 
-        <!-- RED EKRANI -->
+        <!-- RED EKRANI (Mağazaya Davet) -->
         <div id="hl-error-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
             <div class="w-20 h-20 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
@@ -402,7 +402,7 @@
 
 <script>
 (function() {
-    // URL'Yİ BURAYA YAPIŞTIRIN
+    // YENİ DAĞITIM URL'SİNİ BURAYA YAPIŞTIRIN
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiaQvyZG-SdpNxDCk2flmhVEcBDz4aCWoX-OMR3-JAlk2JUTYbe5rIYLw-yGUA14uG/exec"; 
 
     var hlState = { hasIcra: null, isWorking: null, hasTapu: null, age: null, gender: null };
@@ -412,8 +412,6 @@
         const now = new Date();
         const currentMonth = now.getMonth() + "_" + now.getFullYear();
         const lastSubmit = localStorage.getItem("hedef_limit_submitted_month");
-        
-        // Modalın otomatik açılmasını engelledik, sadece true/false döndürüyor
         if (lastSubmit === currentMonth) {
             return true;
         }
@@ -480,16 +478,12 @@
         var wrapper = document.getElementById('hedef-limit-form-wrapper');
         if (!wrapper) return;
 
-        // Sayfa yüklendiğinde otomatik açılma kodu KALDIRILDI
-        // Sadece buton tıklandıktan sonra hesaplama anında kontrol edilecek
-
         document.addEventListener('click', function(e) {
             var el = e.target;
             
             // Modal kapatma butonu
             if (el.id === 'hl-close-modal' || el.closest('#hl-close-modal')) {
                 document.getElementById('hl-spam-modal').classList.add('hl-hidden');
-                // Formu sıfırlayıp baştan başlatabiliriz
                 window.location.reload();
                 return false;
             }
@@ -550,17 +544,20 @@
                 const checkResponse = await fetch(SCRIPT_URL + "?phone=" + encodeURIComponent(phone) + "&tc=" + encodeURIComponent(tc), {
                     method: 'GET'
                 });
-                const checkData = await checkResponse.json();
                 
-                if (checkData.exists) {
-                    document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
-                    setLocalStorageSpam(); // Spam engeline takılanı LocalStorage'a da ekle
-                    btn.innerText = "Limitimi Hesapla";
-                    btn.disabled = false;
-                    return; // İşlemi Durdur
+                // Eğer sunucu düzgün JSON dönerse spam kontrolü çalışır
+                if (checkResponse.ok) {
+                    const checkData = await checkResponse.json();
+                    if (checkData && checkData.exists) {
+                        document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
+                        setLocalStorageSpam(); // Spam engeline takılanı LocalStorage'a da ekle
+                        btn.innerText = "Limitimi Hesapla";
+                        btn.disabled = false;
+                        return; // Mükerrer kayıt olduğu için gönderimi durdur
+                    }
                 }
             } catch(e) {
-                console.error("Spam kontrolü yapılamadı, işleme devam ediliyor.", e);
+                console.warn("Spam sunucu kontrolü atlandı, form kaydına geçiliyor.", e);
             }
 
             btn.innerText = "HESAPLANIYOR...";
@@ -570,9 +567,10 @@
             var approved = decision.approved;
             var amount = decision.limit;
 
+            // 3. ADIM: Veri Kaydetme (Garantili FormData Yöntemi)
             if(SCRIPT_URL) {
                 try {
-                    const formData = new URLSearchParams();
+                    const formData = new FormData();
                     formData.append('tc', tc);
                     formData.append('name', name);
                     formData.append('surname', surname);
@@ -591,9 +589,7 @@
                     fetch(SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors',
-                        cache: 'no-cache',
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: formData.toString()
+                        body: formData
                     });
                     
                     // Başarı durumunda tarayıcıyı kilitle
