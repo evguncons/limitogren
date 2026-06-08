@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hedef AVM - Limit Tespit Formu</title>
+    <title>Hedef AVM - Limit Tespit Formu Mağaza</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -248,6 +248,18 @@
             <h3 class="text-2xl font-black text-gray-900 mb-2">Uyarı!</h3>
             <p class="text-gray-600 font-medium mb-6 leading-relaxed">Bu ay için başvurunuz sistemimizde kayıtlıdır.<br>Lütfen daha sonra tekrar deneyiniz.</p>
             <button type="button" id="hl-close-modal" class="w-full py-3 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-colors uppercase tracking-wide">Tamam</button>
+        </div>
+    </div>
+
+    <!-- YÜKLENİYOR (LOADING) ANİMASYONLU EKRAN -->
+    <div id="hl-loading-modal" class="fixed inset-0 z-[10005] bg-black bg-opacity-60 flex items-center justify-center hl-hidden hl-fade-in" style="backdrop-filter: blur(2px);">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-[80%] mx-auto shadow-2xl text-center flex flex-col items-center">
+            <svg class="animate-spin h-14 w-14 text-pink-600 mb-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h3 class="text-2xl font-black text-gray-900 mb-2">Sorgulanıyor...</h3>
+            <p class="text-gray-500 font-medium text-sm">Lütfen bekleyiniz, bilgileriniz kontrol ediliyor ve limitiniz hesaplanıyor.</p>
         </div>
     </div>
 
@@ -528,18 +540,20 @@
             }
 
             var btn = document.getElementById('hl-trigger-calculate');
-            btn.innerText = "KONTROL EDİLİYOR...";
             btn.disabled = true;
+
+            // YÜKLENİYOR (LOADING) EKRANINI GÖSTER
+            document.getElementById('hl-loading-modal').classList.remove('hl-hidden');
 
             // 1. ADIM: LocalStorage Kontrolü (Hızlı ve Kişi Bazlı Kontrol)
             if (checkLocalStorageSpam(phone)) {
+                document.getElementById('hl-loading-modal').classList.add('hl-hidden');
                 document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
                 return;
             }
 
             // 2. ADIM: Apps Script Üzerinden Sheets Veri Tabanı (Canlı) Kontrolü
             try {
-                // CORS hatasını önlemek için custom headers kaldırıldı
                 const checkUrl = SCRIPT_URL + "?phone=" + encodeURIComponent(phone);
                 const checkResponse = await fetch(checkUrl, { method: 'GET' });
                 
@@ -547,6 +561,7 @@
                 if (textRes) {
                     const checkData = JSON.parse(textRes);
                     if (checkData && checkData.exists) {
+                        document.getElementById('hl-loading-modal').classList.add('hl-hidden');
                         document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
                         setLocalStorageSpam(phone); // Spam engeline takılanı LocalStorage'a da ekle
                         return; // Mükerrer kayıt olduğu için gönderimi durdur
@@ -555,8 +570,6 @@
             } catch(e) {
                 console.warn("Spam sunucu kontrolü atlandı veya hata alındı, form kaydına geçiliyor.", e);
             }
-
-            btn.innerText = "HESAPLANIYOR...";
 
             // Varyasyon Matrisi Çalıştırılıyor
             var decision = getVariationLimit(hlState);
@@ -596,8 +609,9 @@
                 }
             }
 
-            // Sonucu göster
+            // Sonucu göstermeden önce kısa bir süre daha beklet (Daha iyi UX animasyonu için)
             setTimeout(function() {
+                document.getElementById('hl-loading-modal').classList.add('hl-hidden');
                 document.getElementById('hl-form-content').classList.add('hl-hidden');
                 if (approved) {
                     document.getElementById('hl-final-amount').innerText = amount;
@@ -607,7 +621,7 @@
                     document.getElementById('hl-error-content').classList.remove('hl-hidden');
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 1000);
+            }, 1200);
         }
     }
 
