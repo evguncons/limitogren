@@ -402,6 +402,7 @@
 
 <script>
 (function() {
+    // URL'Yİ BURAYA YAPIŞTIRIN
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiaQvyZG-SdpNxDCk2flmhVEcBDz4aCWoX-OMR3-JAlk2JUTYbe5rIYLw-yGUA14uG/exec"; 
 
     var hlState = { hasIcra: null, isWorking: null, hasTapu: null, age: null, gender: null };
@@ -412,6 +413,7 @@
         const currentMonth = now.getMonth() + "_" + now.getFullYear();
         const lastSubmit = localStorage.getItem("hedef_limit_submitted_month");
         
+        // Modalın otomatik açılmasını engelledik, sadece true/false döndürüyor
         if (lastSubmit === currentMonth) {
             return true;
         }
@@ -477,6 +479,9 @@
     function runHedefCode() {
         var wrapper = document.getElementById('hedef-limit-form-wrapper');
         if (!wrapper) return;
+
+        // Sayfa yüklendiğinde otomatik açılma kodu KALDIRILDI
+        // Sadece buton tıklandıktan sonra hesaplama anında kontrol edilecek
 
         document.addEventListener('click', function(e) {
             var el = e.target;
