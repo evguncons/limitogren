@@ -407,21 +407,16 @@
 
     var hlState = { hasIcra: null, isWorking: null, hasTapu: null, age: null, gender: null };
 
-    // --- SPAM KONTROLÜ (LOCAL STORAGE) ---
-    function checkLocalStorageSpam() {
-        const now = new Date();
-        const currentMonth = now.getMonth() + "_" + now.getFullYear();
-        const lastSubmit = localStorage.getItem("hedef_limit_submitted_month");
-        if (lastSubmit === currentMonth) {
+    // --- SPAM KONTROLÜ (LOCAL STORAGE) - KİŞİ BAZLI ---
+    function checkLocalStorageSpam(phone) {
+        if (localStorage.getItem("hedef_limit_phone_" + phone)) {
             return true;
         }
         return false;
     }
 
-    function setLocalStorageSpam() {
-        const now = new Date();
-        const currentMonth = now.getMonth() + "_" + now.getFullYear();
-        localStorage.setItem("hedef_limit_submitted_month", currentMonth);
+    function setLocalStorageSpam(phone) {
+        localStorage.setItem("hedef_limit_phone_" + phone, "true");
     }
 
     // --- VARYASYON (LİMİT) MATRİSİ ---
@@ -484,7 +479,12 @@
             // Modal kapatma butonu
             if (el.id === 'hl-close-modal' || el.closest('#hl-close-modal')) {
                 document.getElementById('hl-spam-modal').classList.add('hl-hidden');
-                window.location.reload();
+                // modal kapatıldığında butonu eski haline getir
+                var btn = document.getElementById('hl-trigger-calculate');
+                if(btn) {
+                    btn.innerText = "Limitimi Hesapla";
+                    btn.disabled = false;
+                }
                 return false;
             }
             
@@ -531,33 +531,29 @@
             btn.innerText = "KONTROL EDİLİYOR...";
             btn.disabled = true;
 
-            // 1. ADIM: LocalStorage Kontrolü (Hızlı Kontrol)
-            if (checkLocalStorageSpam()) {
+            // 1. ADIM: LocalStorage Kontrolü (Hızlı ve Kişi Bazlı Kontrol)
+            if (checkLocalStorageSpam(phone)) {
                 document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
-                btn.innerText = "Limitimi Hesapla"; 
-                btn.disabled = false;
                 return;
             }
 
             // 2. ADIM: Apps Script Üzerinden Sheets Veri Tabanı (Canlı) Kontrolü
             try {
-                const checkResponse = await fetch(SCRIPT_URL + "?phone=" + encodeURIComponent(phone) + "&tc=" + encodeURIComponent(tc), {
-                    method: 'GET'
-                });
+                // CORS hatasını önlemek için custom headers kaldırıldı
+                const checkUrl = SCRIPT_URL + "?phone=" + encodeURIComponent(phone);
+                const checkResponse = await fetch(checkUrl, { method: 'GET' });
                 
-                // Eğer sunucu düzgün JSON dönerse spam kontrolü çalışır
-                if (checkResponse.ok) {
-                    const checkData = await checkResponse.json();
+                const textRes = await checkResponse.text();
+                if (textRes) {
+                    const checkData = JSON.parse(textRes);
                     if (checkData && checkData.exists) {
                         document.getElementById('hl-spam-modal').classList.remove('hl-hidden');
-                        setLocalStorageSpam(); // Spam engeline takılanı LocalStorage'a da ekle
-                        btn.innerText = "Limitimi Hesapla";
-                        btn.disabled = false;
+                        setLocalStorageSpam(phone); // Spam engeline takılanı LocalStorage'a da ekle
                         return; // Mükerrer kayıt olduğu için gönderimi durdur
                     }
                 }
             } catch(e) {
-                console.warn("Spam sunucu kontrolü atlandı, form kaydına geçiliyor.", e);
+                console.warn("Spam sunucu kontrolü atlandı veya hata alındı, form kaydına geçiliyor.", e);
             }
 
             btn.innerText = "HESAPLANIYOR...";
@@ -586,19 +582,21 @@
                     formData.append('status', approved ? "KABUL EDİLDİ" : "REDDEDİLDİ");
                     formData.append('amount', approved ? amount : "");
 
+                    // Fire and forget (cevap beklemiyoruz)
                     fetch(SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors',
                         body: formData
                     });
                     
-                    // Başarı durumunda tarayıcıyı kilitle
-                    setLocalStorageSpam();
+                    // Veri gitti, Spam engelleyiciyi tetikle
+                    setLocalStorageSpam(phone);
                 } catch (e) {
                     console.error("Sheets Error:", e);
                 }
             }
 
+            // Sonucu göster
             setTimeout(function() {
                 document.getElementById('hl-form-content').classList.add('hl-hidden');
                 if (approved) {
