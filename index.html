@@ -302,6 +302,7 @@
                 </div>
             </div>
 
+            <!-- Konum Bilgileri Grid (FİLTRELİ) -->
             <!-- Konum Bilgileri Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                 <div>
@@ -315,7 +316,9 @@
                 </div>
                 <div>
                     <label class="hl-label">İlçe *</label>
-                    <input type="text" id="hl-input-district" placeholder="Örn: Kadıköy">
+                    <select id="hl-input-district" disabled>
+                        <option value="" disabled selected>Önce Şehir Seçiniz</option>
+                    </select>
                 </div>
             </div>
 
@@ -418,6 +421,23 @@
             <button type="button" class="hl-reload-btn w-full py-4 bg-gray-900 text-white font-black rounded-2xl border border-gray-100 uppercase tracking-widest hover:bg-black transition-all">Yeni Sorgu Başlat</button>
         </div>
 
+        <!-- HİZMET BÖLGESİ DIŞI UYARI EKRANI -->
+        <div id="hl-out-of-service-content" class="hl-result-screen hl-fade-in hl-hidden text-center">
+            <div class="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+            </div>
+            <h2 class="text-3xl font-black mb-2 text-blue-600">Hizmet Bölgesi Dışı</h2>
+            <p class="text-gray-600 font-bold text-lg mb-6">Seçtiğiniz bölgede henüz hizmet veremiyoruz.</p>
+            <div class="bg-blue-50 p-8 rounded-3xl text-left mb-8 border border-blue-200">
+                <p class="font-black text-blue-900 mb-3 uppercase text-base">BİLGİLENDİRME,</p>
+                <p class="text-base text-gray-700 leading-relaxed mb-4">Hedef AVM olarak operasyonlarımızı ve teslimatlarımızı şu an için yalnızca belirli bölgeler (İstanbul Anadolu Yakası, Kocaeli, Bursa) ile sınırlı tutmaktayız.</p>
+                <p class="text-base text-gray-800 font-bold italic border-t pt-4 border-blue-200">Anlayışınız için teşekkür ederiz. Farklı bir bölgeden işlem yapmak isterseniz tekrar deneyebilirsiniz.</p>
+            </div>
+            <button type="button" class="hl-reload-btn w-full py-4 bg-gray-900 text-white font-black rounded-2xl border border-gray-100 uppercase tracking-widest hover:bg-black transition-all">Geri Dön</button>
+        </div>
+
     </div>
 </div>
 
@@ -486,6 +506,34 @@
     function runHedefCode() {
         var wrapper = document.getElementById('hedef-limit-form-wrapper');
         if (!wrapper) return;
+
+        // --- DİNAMİK İLÇE SİSTEMİ ---
+        const districtData = {
+            "İstanbul Anadolu": ["Sancaktepe", "Beykoz", "Sultanbeyli", "Çekmeköy"],
+            "Kocaeli": ["Çayırova", "Gebze", "Derince", "İzmit", "Körfez", "Gölcük"],
+            "Bursa": ["İnegöl"]
+        };
+
+        var citySelect = document.getElementById('hl-input-city');
+        var districtSelect = document.getElementById('hl-input-district');
+
+        citySelect.addEventListener('change', function() {
+            var selectedCity = this.value;
+            districtSelect.innerHTML = '<option value="" disabled selected>İlçe Seçiniz</option>';
+            
+            if (districtData[selectedCity]) {
+                districtData[selectedCity].forEach(function(district) {
+                    var option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+                districtSelect.disabled = false;
+            } else {
+                districtSelect.disabled = true;
+            }
+        });
+        // -----------------------------
 
         document.addEventListener('click', function(e) {
             var el = e.target;
@@ -569,35 +617,29 @@
             var isDuplicate = false;
 
             if(SCRIPT_URL) {
-                // SUNUCU KORUMASI: Sadece aktif ayın verilerini çek ve telefon numaralarını tara
-                if (!isDuplicate) {
-                    try {
-                        const response = await fetch(SCRIPT_URL); 
-                        if (response.ok) {
-                            const dashData = await response.json();
-                            if (dashData && dashData.records) {
-                                // Sadece rakamları ayıkla
-                                const cleanInputPhone = phone.replace(/[^\d]/g, '');
+                // SUNUCU KORUMASI: Sadece mükerrer değilse veriyi E-Tabloya yaz
+                try {
+                    const response = await fetch(SCRIPT_URL); 
+                    if (response.ok) {
+                        const dashData = await response.json();
+                        if (dashData && dashData.records) {
+                            const cleanInputPhone = phone.replace(/[^\d]/g, '');
+                            
+                            for (let i = 0; i < dashData.records.length; i++) {
+                                let rec = dashData.records[i];
+                                let recPhone = String(rec.contact || "").replace(/[^\d]/g, '');
                                 
-                                // Tablodaki tüm aktif ay kayıtlarını döngüye al
-                                for (let i = 0; i < dashData.records.length; i++) {
-                                    let rec = dashData.records[i];
-                                    let recPhone = String(rec.contact || "").replace(/[^\d]/g, '');
-                                    
-                                    // Eğer şube eşleşiyorsa ve telefon no aynısıysa mükerrer say
-                                    if (rec.branch === branchName && recPhone === cleanInputPhone && recPhone.length > 5) {
-                                        isDuplicate = true;
-                                        break; // Döngüyü kır, taramayı bitir
-                                    }
+                                if (rec.branch === branchName && recPhone === cleanInputPhone && recPhone.length > 5) {
+                                    isDuplicate = true;
+                                    break; 
                                 }
                             }
                         }
-                    } catch (e) {
-                        console.warn("Canlı mükerrer kontrolü atlandı (Google Sheet JSON hatası veya bağlantı problemi):", e);
                     }
+                } catch (e) {
+                    console.warn("Canlı mükerrer kontrolü atlandı:", e);
                 }
 
-                // E-TABLOYA YAZ: Mükerrer değilse Sheets'e veriyi POST et
                 if (!isDuplicate) {
                     try {
                         const payloadData = {
