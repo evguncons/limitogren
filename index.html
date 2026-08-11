@@ -185,7 +185,6 @@
             opacity: 0.95;
         }
 
-        /* Yükleniyor (Loading) Animasyonu İçin Yeni CSS Sınıfı */
         @keyframes hlSpin {
             to { transform: rotate(360deg); }
         }
@@ -291,7 +290,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                 <div>
                     <label class="hl-label">Şehir *</label>
-                    <select id="hl-input-city">
+                    <select id="hl-input-city" disabled>
                         <option value="" disabled selected>Şehir Seçiniz</option>
                         <option value="İstanbul Anadolu">İstanbul Anadolu</option>
                         <option value="Kocaeli">Kocaeli</option>
@@ -356,19 +355,15 @@
 
         <!-- YENİ ONAY EKRANI (VİZYON TASARIM) -->
         <div id="hl-success-content" class="hl-result-screen hl-fade-in hl-hidden w-full max-w-md mx-auto">
-            
-            <!-- Onay İkonu -->
             <div class="w-16 h-16 bg-[#1eb566] text-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
             </div>
             
-            <!-- Başlık ve İsim -->
             <h2 class="text-[26px] font-black mb-1 text-gray-800 text-center tracking-tight">Tebrikler <span id="hl-dynamic-name" class="text-[#e85b0d]">İsim</span>!</h2>
             <p class="text-gray-500 font-medium text-[13.5px] text-center mb-5">Değerlendirmeniz tamamlandı. İşte size özel alışveriş limitiniz:</p>
             
-            <!-- Magenta Limit Kartı -->
             <div class="bg-gradient-to-br from-[#d81b60] to-[#880e4f] rounded-3xl p-6 text-white mb-4 relative overflow-hidden shadow-xl text-left">
                 <div class="flex items-center text-[11px] font-bold tracking-widest text-pink-200 mb-2 uppercase opacity-90">
                     <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
@@ -381,14 +376,12 @@
                 <div class="mt-5 text-[11px] text-pink-200/70 font-medium">* Verdiğiniz bilgiler doğrultusunda belirlenmiştir.</div>
             </div>
             
-            <!-- Geri Sayım Kutusu -->
             <div class="bg-[#fef3e7] text-[#e67527] rounded-xl py-3.5 px-4 flex items-center justify-center mb-5 font-bold text-sm border border-[#fce4cd]">
                 <svg class="w-5 h-5 mr-2 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <span>Bu limit <span id="hl-countdown-timer" class="font-black mx-1 tracking-widest text-lg">23:59:59</span> boyunca geçerli</span>
             </div>
 
-            <!-- Dinamik Şube ve Adres Bilgi Kutusu -->
-            <div class="bg-gray-50 rounded-2xl p-4.5 border border-gray-200 mb-6 text-left shadow-sm">
+            <div class="bg-gray-50 rounded-2xl p-4 border border-gray-200 mb-6 text-left shadow-sm">
                 <h3 class="font-black text-gray-800 text-[14px] mb-2 flex items-start">
                     <span class="text-xl mr-2 leading-none">📍</span>
                     <span>Limitinizi <span id="hl-dynamic-branch-name" class="text-[#e85b0d]">Şube</span> mağazamızda hemen kullanabilirsiniz.</span>
@@ -399,15 +392,12 @@
                 </div>
             </div>
 
-            <!-- Aksiyon Butonları -->
             <div class="flex flex-col gap-3">
-                <!-- Navigasyon (Konum Al) Butonu -->
                 <a href="#" id="hl-btn-directions" target="_blank" class="w-full py-4 bg-gradient-to-r from-[#f37021] to-[#e85b0d] text-white font-black tracking-wide rounded-2xl flex items-center justify-center text-[15.5px] shadow-lg shadow-orange-500/30 transition-transform active:scale-95">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     Konum Al (Yol Tarifi)
                 </a>
                 
-                <!-- WhatsApp Paylaş Butonu -->
                 <a href="#" id="hl-btn-wa" target="_blank" class="w-full py-4 bg-[#25D366] text-white font-black tracking-wide rounded-2xl flex items-center justify-center text-[15.5px] shadow-lg shadow-green-500/30 transition-transform active:scale-95">
                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
                     WhatsApp'tan Paylaş
@@ -455,7 +445,7 @@
 
 <script>
 (function() {
-    // Apps Script Web App Bağlantı Linki
+    // EN GÜNCEL Apps Script Web App Bağlantı Linkiniz
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJco-61fkRRC7zXwv8gul-oV4ShiofBEnDqgo1tFeulKB0ez6Z4MuwakaAmUiYssxS/exec"; 
 
     var hlState = { hasIcra: null, isWorking: null, hasTapu: null, age: null, gender: null };
@@ -479,74 +469,47 @@
 
     // Karar Matrisi
     function getVariationLimit(state) {
-        if (state.hasIcra === 'Evet') {
-            return { approved: false, limit: "" }; 
-        }
-        const calisma = state.isWorking;
-        const tapu = state.hasTapu;
-        const age = state.age;
-        const gender = state.gender;
+        if (state.hasIcra === 'Evet') return { approved: false, limit: "" }; 
+        const calisma = state.isWorking, tapu = state.hasTapu, age = state.age, gender = state.gender;
 
         if (calisma === 'Evet' && tapu === 'Evet') {
             if (age === '18-26') return { approved: true, limit: "150.000" };
-            if (age === '27-35') return { approved: true, limit: "200.000" };
-            if (age === '36+') return { approved: true, limit: "200.000" };
+            if (age === '27-35' || age === '36+') return { approved: true, limit: "200.000" };
         }
-        if (calisma === 'Evet' && tapu === 'Hayır') {
-            if (age === '18-26') return { approved: true, limit: "150.000" };
-            if (age === '27-35') return { approved: true, limit: "150.000" };
-            if (age === '36+') return { approved: true, limit: "150.000" };
-        }
+        if (calisma === 'Evet' && tapu === 'Hayır') return { approved: true, limit: "150.000" };
+        
         if (calisma === 'Hayır' && tapu === 'Evet') {
-            if (age === '18-26') return { approved: true, limit: "100.000" };
-            if (age === '27-35') {
-                if (gender === 'Kadın') return { approved: true, limit: "75.000" };
-                if (gender === 'Erkek') return { approved: true, limit: "100.000" };
-            }
-            if (age === '36+') return { approved: true, limit: "100.000" };
+            if (age === '18-26' || age === '36+') return { approved: true, limit: "100.000" };
+            if (age === '27-35') return { approved: true, limit: gender === 'Kadın' ? "75.000" : "100.000" };
         }
-        if (calisma === 'Hayır' && tapu === 'Hayır') {
-            if (gender === 'Kadın') return { approved: true, limit: "75.000" };
-            if (gender === 'Erkek') return { approved: false, limit: "" };
-        }
+        if (calisma === 'Hayır' && tapu === 'Hayır') return { approved: gender === 'Kadın', limit: gender === 'Kadın' ? "75.000" : "" };
         return { approved: false, limit: "" };
     }
 
-    // Tarihi formatlama
     function getFormattedDate() {
         const now = new Date();
-        const dd = String(now.getDate()).padStart(2, '0');
-        const mm = String(now.getMonth() + 1).padStart(2, '0');
-        const yyyy = now.getFullYear();
-        const hh = String(now.getHours()).padStart(2, '0');
-        const min = String(now.getMinutes()).padStart(2, '0');
-        return `${dd}.${mm}.${yyyy} ${hh}:${min}`;
+        const d = [String(now.getDate()).padStart(2, '0'), String(now.getMonth() + 1).padStart(2, '0'), now.getFullYear()];
+        const t = [String(now.getHours()).padStart(2, '0'), String(now.getMinutes()).padStart(2, '0')];
+        return `${d[0]}.${d[1]}.${d[2]} ${t[0]}:${t[1]}`;
     }
 
-    // 24 Saatlik Geri Sayım Fonksiyonu
     let countdownInterval;
     function startCountdown() {
         if(countdownInterval) clearInterval(countdownInterval);
-        
-        // Onaylandığı andan itibaren tam 24 saat sonrasının zaman damgası
         const endTime = new Date().getTime() + (24 * 60 * 60 * 1000); 
 
         function updateTimer() {
             const now = new Date().getTime();
             const diff = endTime - now;
-            
             if(diff <= 0) {
                 document.getElementById('hl-countdown-timer').innerText = "00:00:00";
                 clearInterval(countdownInterval);
                 return;
             }
-            
             const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            const formatted = String(h).padStart(2, '0') + ":" + String(m).padStart(2, '0') + ":" + String(s).padStart(2, '0');
-            document.getElementById('hl-countdown-timer').innerText = formatted;
+            document.getElementById('hl-countdown-timer').innerText = String(h).padStart(2, '0') + ":" + String(m).padStart(2, '0') + ":" + String(s).padStart(2, '0');
         }
         updateTimer();
         countdownInterval = setInterval(updateTimer, 1000);
@@ -556,36 +519,11 @@
         var wrapper = document.getElementById('hedef-limit-form-wrapper');
         if (!wrapper) return;
 
-        // --- DİNAMİK İLÇE SİSTEMİ ---
-        const districtData = {
-            "İstanbul Anadolu": ["Sancaktepe", "Beykoz", "Sultanbeyli", "Çekmeköy"],
-            "Kocaeli": ["Çayırova", "Gebze", "Derince", "İzmit", "Körfez", "Gölcük"],
-            "Bursa": ["İnegöl"],
-            "Düzce": ["Burhaniye"]
-        };
-
+        // Şube ve İl-İlçe Eşleştirme Dinamikleri
         var citySelect = document.getElementById('hl-input-city');
         var districtSelect = document.getElementById('hl-input-district');
         var branchSelect = document.getElementById('hl-input-branch');
 
-        citySelect.addEventListener('change', function() {
-            var selectedCity = this.value;
-            districtSelect.innerHTML = '<option value="" disabled selected>İlçe Seçiniz</option>';
-            
-            if (districtData[selectedCity]) {
-                districtData[selectedCity].forEach(function(district) {
-                    var option = document.createElement('option');
-                    option.value = district;
-                    option.textContent = district;
-                    districtSelect.appendChild(option);
-                });
-                districtSelect.disabled = false;
-            } else {
-                districtSelect.disabled = true;
-            }
-        });
-
-        // Şube seçildiğinde İl-İlçe otomatik doldurma
         const branchToLocation = {
             "İnegöl Şubesi": { city: "Bursa", district: "İnegöl" },
             "Paşabahçe Şubesi": { city: "İstanbul Anadolu", district: "Beykoz" },
@@ -606,35 +544,29 @@
             var selectedBranch = this.value;
             if(branchToLocation[selectedBranch]) {
                 citySelect.value = branchToLocation[selectedBranch].city;
-                citySelect.dispatchEvent(new Event('change')); 
-                setTimeout(function() { districtSelect.value = branchToLocation[selectedBranch].district; }, 50);
+                districtSelect.innerHTML = `<option value="${branchToLocation[selectedBranch].district}" selected>${branchToLocation[selectedBranch].district}</option>`;
+                districtSelect.disabled = false;
             }
         });
-        // -----------------------------
 
         document.addEventListener('click', function(e) {
-            var el = e.target;
-            var optBtn = el.closest('.hl-opt-btn');
+            var optBtn = e.target.closest('.hl-opt-btn');
             if (optBtn) {
                 e.preventDefault();
-                e.stopPropagation();
                 var parent = optBtn.closest('.hl-options-grid');
-                var key = parent.getAttribute('data-key');
-                var val = optBtn.getAttribute('data-val');
-                hlState[key] = val;
-                var btns = parent.querySelectorAll('.hl-opt-btn');
-                for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+                hlState[parent.getAttribute('data-key')] = optBtn.getAttribute('data-val');
+                parent.querySelectorAll('.hl-opt-btn').forEach(b => b.classList.remove('active'));
                 optBtn.classList.add('active');
                 return false;
             }
 
-            if (el.id === 'hl-trigger-calculate') {
+            if (e.target.id === 'hl-trigger-calculate') {
                 e.preventDefault();
                 calculateLimit();
                 return false;
             }
 
-            if (el.closest('.hl-reload-btn')) {
+            if (e.target.closest('.hl-reload-btn')) {
                 window.location.reload();
             }
         }, true);
@@ -653,88 +585,54 @@
                 alertBox.style.display = 'block';
                 alertBox.style.animation = 'hlSlideDownAlert 0.4s ease forwards';
                 document.getElementById('hl-main-container').classList.add('hl-shake');
-                setTimeout(function() { 
-                    alertBox.style.display = 'none'; 
-                    document.getElementById('hl-main-container').classList.remove('hl-shake');
-                }, 3000);
+                setTimeout(() => { alertBox.style.display = 'none'; document.getElementById('hl-main-container').classList.remove('hl-shake'); }, 3000);
                 return;
             }
 
-            var btn = document.getElementById('hl-trigger-calculate');
-            btn.disabled = true;
-
-            // Tam Ekran Yükleme Animasyonunu Göster
+            document.getElementById('hl-trigger-calculate').disabled = true;
             document.getElementById('hl-loading-overlay').classList.remove('hl-hidden');
 
             var decision = getVariationLimit(hlState);
             var approved = decision.approved;
             var amount = decision.limit;
+            var branchName = selectedSube;
 
-            let branchName = "";
-            if(selectedSube.includes("İnegöl")) branchName = "İnegöl Şubesi";
-            else if(selectedSube.includes("Paşabahçe")) branchName = "Paşabahçe Şubesi";
-            else if(selectedSube.includes("Çekmeköy")) branchName = "Çekmeköy Şubesi";
-            else if(selectedSube.includes("İzmit")) branchName = "İzmit Şubesi";
-            else if(selectedSube.includes("Gölcük")) branchName = "Gölcük Şubesi";
-            else if(selectedSube.includes("Körfez")) branchName = "Körfez Şubesi";
-            else if(selectedSube.includes("Derince")) branchName = "Derince Şubesi";
-            else if(selectedSube.includes("Sultanbeyli")) branchName = "Sultanbeyli Şubesi";
-            else if(selectedSube.includes("Yenidoğan")) branchName = "Yenidoğan Şubesi";
-            else if(selectedSube.includes("Kavacık")) branchName = "Kavacık Şubesi";
-            else if(selectedSube.includes("Çayırova")) branchName = "Çayırova Şubesi";
-            else if(selectedSube.includes("Gebze")) branchName = "Gebze Şubesi";
-            else if(selectedSube.includes("Düzce")) branchName = "Düzce Şubesi";
-
-            let productName = "";
-            if (approved) {
-                productName = "LİMİT ÖĞREN - " + amount + " (" + city + " - " + district + ") - TC: " + tc;
-            } else {
-                productName = "LİMİT ÖĞREN BİLGİ (" + city + " - " + district + ") - TC: " + tc;
-            }
-
+            let productName = approved ? `LİMİT ÖĞREN - ${amount} (${city} - ${district}) - TC: ${tc}` : `LİMİT ÖĞREN BİLGİ (${city} - ${district}) - TC: ${tc}`;
             var isDuplicate = false;
 
             if(SCRIPT_URL) {
-                // SUNUCU KORUMASI: Mükerrer Kontrolü
+                // SADECE TELEFON NUMARASINA GÖRE HIZLI VE KESİN MÜKERRER KONTROLÜ
                 try {
-                    const response = await fetch(SCRIPT_URL); 
+                    const checkUrl = SCRIPT_URL + "?action=checkDuplicate&contact=" + encodeURIComponent(phone) + "&branch=" + encodeURIComponent(branchName);
+                    const response = await fetch(checkUrl); 
                     if (response.ok) {
-                        const dashData = await response.json();
-                        if (dashData && dashData.records) {
-                            const cleanInputPhone = phone.replace(/[^\d]/g, '');
-                            for (let i = 0; i < dashData.records.length; i++) {
-                                let rec = dashData.records[i];
-                                let recPhone = String(rec.contact || "").replace(/[^\d]/g, '');
-                                if (rec.branch === branchName && recPhone === cleanInputPhone && recPhone.length > 5) {
-                                    isDuplicate = true;
-                                    break; 
-                                }
-                            }
+                        const resData = await response.json();
+                        if (resData && resData.duplicate === true) {
+                            isDuplicate = true;
                         }
                     }
                 } catch (e) {
-                    console.warn("Canlı mükerrer kontrolü atlandı:", e);
+                    console.warn("Mükerrer kontrol hatası:", e);
                 }
 
-                // E-Tabloya Yazma (Sert Kurallar G Geçerli)
+                // MÜKERRER DEĞİLSE E-TABLOYA YAZ
                 if (!isDuplicate) {
                     try {
                         const payloadData = {
                             action: "addCustomersBulk",
-                            data: [
-                                {
-                                    date: getFormattedDate(),
-                                    branch: branchName,
-                                    status: "aranmadı",
-                                    name: (name + " " + surname).toUpperCase(),
-                                    contact: phone,
-                                    customerNo: tc, 
-                                    media: "Web Sitesi Form", 
-                                    category: "LİMİT ÖĞREN", 
-                                    product: productName
-                                }
-                            ]
+                            data: [{
+                                date: getFormattedDate(),
+                                branch: branchName,
+                                status: "aranmadı",
+                                name: (name + " " + surname).toUpperCase(),
+                                contact: phone,
+                                customerNo: tc, 
+                                media: "", // Apps script tarafında H sütunu
+                                category: "", // Apps script tarafında G sütunu
+                                product: productName // I sütunu
+                            }]
                         };
+
                         await fetch(SCRIPT_URL, {
                             method: 'POST',
                             mode: 'no-cors',
@@ -748,7 +646,6 @@
                 }
             }
 
-            // SONUÇ EKRANINI GÖSTERME
             setTimeout(function() {
                 document.getElementById('hl-loading-overlay').classList.add('hl-hidden');
                 document.getElementById('hl-form-content').classList.add('hl-hidden');
@@ -756,27 +653,20 @@
                 if (isDuplicate) {
                     document.getElementById('hl-duplicate-content').classList.remove('hl-hidden');
                 } else if (approved) {
-                    // İSİM - Sadece İlk İsmi Al (Örn: Ali Yılmaz -> Ali)
                     let firstName = name.split(' ')[0];
-                    firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
-                    document.getElementById('hl-dynamic-name').innerText = firstName;
-                    
-                    // RAKAM - Miktarı Yaz
+                    document.getElementById('hl-dynamic-name').innerText = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
                     document.getElementById('hl-final-amount').innerText = amount;
                     
-                    // ŞUBE ADRES VE HARİTA DİNAMİĞİ
                     let branchInfo = branchDetails[branchName];
                     if(branchInfo) {
                         document.getElementById('hl-dynamic-branch-name').innerText = branchName.replace(" Şubesi", "");
                         document.getElementById('hl-dynamic-branch-address').innerText = branchInfo.address;
                         document.getElementById('hl-btn-directions').href = branchInfo.map;
                         
-                        // WHATSAPP LİNKİ HAZIRLAMA
                         let waText = `Tebrikler! Hedef AVM'den ${amount} ₺ taksitli alışveriş limitiniz onaylandı.\n\nSizi en yakın mağazamız olan ${branchName} mağazasına bekliyoruz.\n📍 Adres: ${branchInfo.address}`;
                         document.getElementById('hl-btn-wa').href = `https://wa.me/?text=${encodeURIComponent(waText)}`;
                     }
 
-                    // Geri Sayımı Başlat ve Ekranı Göster
                     startCountdown();
                     document.getElementById('hl-success-content').classList.remove('hl-hidden');
                 } else {
